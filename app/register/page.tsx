@@ -35,12 +35,12 @@ export default function RegisterPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07070A] flex items-center justify-center p-6">
+    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-6">
 
-      {/* Ambient glow */}
+      {/* Subtle top glow */}
       <div
-        className="fixed top-0 left-1/2 -translate-x-1/2 w-[500px] h-[200px] pointer-events-none"
-        style={{ background: 'radial-gradient(ellipse at center top, rgba(212,168,83,0.05) 0%, transparent 70%)' }}
+        className="fixed top-0 left-1/2 -translate-x-1/2 w-[600px] h-[240px] pointer-events-none"
+        style={{ background: 'radial-gradient(ellipse at center top, rgba(29,78,216,0.06) 0%, transparent 70%)' }}
       />
 
       <div className="w-full max-w-md relative z-10 animate-fade-in">
@@ -48,14 +48,14 @@ export default function RegisterPage() {
         {/* Header */}
         <div className="text-center mb-8">
           <Image src="/logo.png" alt="BTA Logo" width={52} height={52} className="rounded-2xl mx-auto mb-5" />
-          <h1 className="text-2xl font-bold text-[#DDDDE8]">Create your account</h1>
-          <p className="text-sm text-[#45455A] mt-1.5">Join Borderless Tech Academy today</p>
+          <h1 className="text-2xl font-bold text-[#0F172A]">Create your account</h1>
+          <p className="text-sm text-[#64748B] mt-1.5">Join Borderless Tech Academy today</p>
         </div>
 
         {/* Card */}
-        <div className="bg-[#111116] border border-[#1D1D26] rounded-2xl p-7 shadow-2xl shadow-black/50 relative overflow-hidden">
-          {/* Gold top line */}
-          <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[rgba(212,168,83,0.4)] to-transparent" />
+        <div className="bg-white border border-[#E2E8F0] rounded-2xl p-7 shadow-[0_4px_6px_-1px_rgba(15,23,42,0.07),0_2px_4px_-2px_rgba(15,23,42,0.07)] relative overflow-hidden">
+          {/* Blue top accent line */}
+          <div className="absolute top-0 left-8 right-8 h-px bg-gradient-to-r from-transparent via-[rgba(29,78,216,0.35)] to-transparent" />
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
@@ -116,9 +116,9 @@ export default function RegisterPage() {
           </form>
         </div>
 
-        <p className="mt-5 text-center text-sm text-[#45455A]">
+        <p className="mt-5 text-center text-sm text-[#64748B]">
           Already have an account?{' '}
-          <Link href="/login" className="text-[#D4A853] hover:text-[#E8C070] font-medium transition-colors">
+          <Link href="/login" className="text-[#1D4ED8] hover:text-[#1E40AF] font-medium transition-colors">
             Sign in
           </Link>
         </p>

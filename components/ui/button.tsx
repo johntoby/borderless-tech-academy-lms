@@ -20,23 +20,23 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary: [
-        'bg-[#D4A853] hover:bg-[#E2BC6A] text-[#07070A]',
-        'shadow-sm shadow-[rgba(212,168,83,0.22)] hover:shadow-md hover:shadow-[rgba(212,168,83,0.35)]',
+        'bg-[#1D4ED8] hover:bg-[#1E40AF] text-white',
+        'shadow-sm shadow-[rgba(29,78,216,0.20)] hover:shadow-md hover:shadow-[rgba(29,78,216,0.30)]',
         'font-semibold',
       ].join(' '),
       secondary: [
-        'bg-[#17171D] hover:bg-[#1E1E26] text-[#DDDDE8]',
-        'border border-[#282835] hover:border-[#353545]',
+        'bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0F172A]',
+        'border border-[#E2E8F0] hover:border-[#CBD5E1]',
       ].join(' '),
       danger: [
-        'bg-[rgba(236,84,84,0.15)] hover:bg-[rgba(236,84,84,0.22)] text-[#EC5454]',
-        'border border-[rgba(236,84,84,0.25)] hover:border-[rgba(236,84,84,0.4)]',
+        'bg-[rgba(239,68,68,0.08)] hover:bg-[rgba(239,68,68,0.14)] text-[#EF4444]',
+        'border border-[rgba(239,68,68,0.20)] hover:border-[rgba(239,68,68,0.35)]',
       ].join(' '),
-      ghost: 'hover:bg-[#17171D] text-[#65657A] hover:text-[#DDDDE8]',
+      ghost: 'hover:bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]',
       outline: [
-        'border border-[#282835] hover:border-[rgba(212,168,83,0.35)]',
-        'text-[#65657A] hover:text-[#D4A853]',
-        'hover:bg-[rgba(212,168,83,0.04)]',
+        'border border-[#E2E8F0] hover:border-[rgba(29,78,216,0.35)]',
+        'text-[#64748B] hover:text-[#1D4ED8]',
+        'hover:bg-[rgba(29,78,216,0.04)]',
       ].join(' '),
     }
 

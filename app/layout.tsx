@@ -33,7 +33,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
-      className={`dark ${syne.variable} ${figtree.variable} ${jetbrainsMono.variable}`}
+      className={`${syne.variable} ${figtree.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased">
         <Providers>{children}</Providers>

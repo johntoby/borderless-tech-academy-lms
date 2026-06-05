@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { signIn } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Eye, EyeOff, ArrowRight, Terminal } from 'lucide-react'
+import { Eye, EyeOff, ArrowRight, Rocket } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -37,34 +37,47 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#07070A] flex">
+    <div className="min-h-screen bg-[#F8FAFC] flex">
 
-      {/* ── Left decorative panel ── */}
-      <div className="hidden lg:flex lg:w-[48%] relative overflow-hidden bg-[#0B0B0F] border-r border-[#1D1D26] flex-col justify-between p-12">
-
-        {/* Fine grid overlay */}
+      {/* ── Left panel: deep blue, aspirational ── */}
+      <div className="hidden lg:flex lg:w-[46%] relative overflow-hidden flex-col justify-between p-12"
+        style={{
+          background: 'linear-gradient(145deg, #1E3A8A 0%, #1D4ED8 45%, #2563EB 100%)',
+        }}
+      >
+        {/* Mesh overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             backgroundImage: `
-              linear-gradient(rgba(212,168,83,0.04) 1px, transparent 1px),
-              linear-gradient(90deg, rgba(212,168,83,0.04) 1px, transparent 1px)
+              linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px)
             `,
             backgroundSize: '40px 40px',
           }}
         />
 
+        {/* Glow orb */}
+        <div
+          className="absolute -top-24 -right-24 w-96 h-96 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%)' }}
+        />
+        <div
+          className="absolute -bottom-32 -left-16 w-80 h-80 rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle, rgba(212,168,83,0.12) 0%, transparent 70%)' }}
+        />
+
         {/* Corner marks */}
-        <div className="absolute top-8 left-8 w-5 h-5 border-t-2 border-l-2 border-[rgba(212,168,83,0.35)]" />
-        <div className="absolute top-8 right-8 w-5 h-5 border-t-2 border-r-2 border-[rgba(212,168,83,0.35)]" />
-        <div className="absolute bottom-8 left-8 w-5 h-5 border-b-2 border-l-2 border-[rgba(212,168,83,0.35)]" />
-        <div className="absolute bottom-8 right-8 w-5 h-5 border-b-2 border-r-2 border-[rgba(212,168,83,0.35)]" />
+        <div className="absolute top-8 left-8 w-5 h-5 border-t-2 border-l-2 border-white/20" />
+        <div className="absolute top-8 right-8 w-5 h-5 border-t-2 border-r-2 border-white/20" />
+        <div className="absolute bottom-8 left-8 w-5 h-5 border-b-2 border-l-2 border-white/20" />
+        <div className="absolute bottom-8 right-8 w-5 h-5 border-b-2 border-r-2 border-white/20" />
 
         {/* Top logo mark */}
         <div className="relative z-10 flex items-center gap-3">
           <Image src="/logo.png" alt="BTA Logo" width={36} height={36} className="rounded-xl shrink-0" />
           <span
-            className="text-[10px] font-semibold text-[#65657A] tracking-[0.25em] uppercase"
+            className="text-[10px] font-semibold text-white/60 tracking-[0.25em] uppercase"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             Borderless Tech Academy
@@ -78,21 +91,21 @@ export default function LoginPage() {
               className="text-[9px] text-[#D4A853] tracking-[0.3em] uppercase mb-4"
               style={{ fontFamily: 'var(--font-mono)' }}
             >
-              // DevOps Training School
+              DevOps Training School
             </p>
             <h2
-              className="text-6xl font-extrabold leading-[0.92] tracking-tight text-[#DDDDE8]"
+              className="text-6xl font-extrabold leading-[0.92] tracking-tight text-white"
               style={{ fontFamily: 'var(--font-syne)' }}
             >
-              Borderless<br />
-              <span style={{ color: '#D4A853' }}>Tech</span><br />
-              Academy
+              Learn.<br />
+              <span style={{ color: '#D4A853' }}>Build.</span><br />
+              Earn.
             </h2>
           </div>
 
-          <div className="w-12 h-px bg-[#D4A853]" />
+          <div className="w-12 h-px bg-white/25" />
 
-          <p className="text-sm text-[#45455A] leading-relaxed max-w-[22rem]">
+          <p className="text-sm text-white/60 leading-relaxed max-w-[22rem]">
             Master Linux, Docker, Kubernetes, CI/CD, and cloud infrastructure. Real-world DevOps training that gets you hired.
           </p>
 
@@ -106,58 +119,49 @@ export default function LoginPage() {
             ].map(s => (
               <div
                 key={s.label}
-                className="bg-[#111116] border border-[#1D1D26] rounded-xl p-3.5"
+                className="rounded-xl p-3.5"
+                style={{ background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)' }}
               >
-                <p
-                  className="text-xl font-bold text-[#D4A853] tabular-nums"
-                >
-                  {s.value}
-                </p>
-                <p className="text-[10px] text-[#45455A] mt-0.5">{s.label}</p>
+                <p className="text-xl font-bold text-[#D4A853] tabular-nums">{s.value}</p>
+                <p className="text-[10px] text-white/50 mt-0.5">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Bottom terminal hint */}
+        {/* Bottom tagline */}
         <div className="relative z-10 flex items-center gap-2">
-          <Terminal size={12} className="text-[#32324A]" />
+          <Rocket size={12} className="text-white/30" />
           <span
-            className="text-[9px] text-[#32324A] tracking-[0.15em]"
+            className="text-[9px] text-white/30 tracking-[0.15em]"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
-            ssh student@borderless.academy
+            Your laptop is your visa.
           </span>
         </div>
       </div>
 
       {/* ── Right form panel ── */}
-      <div className="flex-1 flex items-center justify-center p-8">
+      <div className="flex-1 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-sm animate-fade-in">
 
           {/* Mobile logo */}
           <div className="lg:hidden flex items-center gap-3 mb-10">
             <Image src="/logo.png" alt="BTA Logo" width={32} height={32} className="rounded-lg shrink-0" />
             <div>
-              <p className="text-xs font-bold text-[#DDDDE8] tracking-[0.12em] uppercase" style={{ fontFamily: 'var(--font-syne)' }}>Borderless Tech Academy</p>
-              <p className="text-[9px] text-[#D4A853] tracking-[0.2em] uppercase" style={{ fontFamily: 'var(--font-mono)' }}>DevOps Training</p>
+              <p className="text-xs font-bold text-[#0F172A] tracking-[0.12em] uppercase" style={{ fontFamily: 'var(--font-syne)' }}>Borderless Tech Academy</p>
+              <p className="text-[9px] text-[#1D4ED8] tracking-[0.2em] uppercase" style={{ fontFamily: 'var(--font-mono)' }}>DevOps Training</p>
             </div>
           </div>
 
           {/* Heading */}
           <div className="mb-8">
-            <p
-              className="text-[9px] text-[#45455A] tracking-[0.25em] uppercase mb-2"
-              style={{ fontFamily: 'var(--font-mono)' }}
-            >
-              // Sign in
-            </p>
-            <h1 className="text-2xl font-bold text-[#DDDDE8]">Welcome back</h1>
-            <p className="text-sm text-[#45455A] mt-1.5">Access your learning dashboard</p>
+            <h1 className="text-2xl font-bold text-[#0F172A]">Welcome back</h1>
+            <p className="text-sm text-[#64748B] mt-1.5">Sign in to your learning dashboard</p>
           </div>
 
-          {/* Gold rule */}
-          <div className="w-full h-px bg-gradient-to-r from-[rgba(212,168,83,0.5)] via-[rgba(212,168,83,0.15)] to-transparent mb-8" />
+          {/* Divider */}
+          <div className="w-full h-px bg-gradient-to-r from-[rgba(29,78,216,0.4)] via-[rgba(29,78,216,0.10)] to-transparent mb-8" />
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <Input
@@ -174,7 +178,7 @@ export default function LoginPage() {
             <div className="flex flex-col gap-1.5">
               <label
                 htmlFor="password"
-                className="text-[10px] font-semibold text-[#65657A] uppercase tracking-[0.12em]"
+                className="text-[10px] font-semibold text-[#64748B] uppercase tracking-[0.12em]"
               >
                 Password
               </label>
@@ -187,12 +191,12 @@ export default function LoginPage() {
                   onChange={e => setPassword(e.target.value)}
                   autoComplete="current-password"
                   required
-                  className="w-full pr-10 pl-3 py-2.5 text-sm bg-[#0B0B0F] border border-[#1D1D26] hover:border-[#282835] rounded-xl text-[#DDDDE8] placeholder-[#30304A] focus:outline-none focus:ring-2 focus:ring-[rgba(212,168,83,0.28)] focus:border-[rgba(212,168,83,0.45)] transition-all duration-200"
+                  className="w-full pr-10 pl-3 py-2.5 text-sm bg-white border border-[#E2E8F0] hover:border-[#CBD5E1] rounded-xl text-[#0F172A] placeholder-[#94A3B8] focus:outline-none focus:ring-2 focus:ring-[rgba(29,78,216,0.18)] focus:border-[rgba(29,78,216,0.40)] transition-all duration-200"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#45455A] hover:text-[#9090A8] transition-colors"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#64748B] transition-colors"
                 >
                   {showPassword ? <EyeOff size={15} /> : <Eye size={15} />}
                 </button>
@@ -204,17 +208,17 @@ export default function LoginPage() {
             </Button>
           </form>
 
-          <div className="mt-7 pt-6 border-t border-[#1D1D26]">
-            <p className="text-center text-sm text-[#45455A]">
+          <div className="mt-7 pt-6 border-t border-[#F1F5F9]">
+            <p className="text-center text-sm text-[#64748B]">
               Don&apos;t have an account?{' '}
-              <Link href="/register" className="text-[#D4A853] hover:text-[#E8C070] font-medium transition-colors">
+              <Link href="/register" className="text-[#1D4ED8] hover:text-[#1E40AF] font-medium transition-colors">
                 Register here
               </Link>
             </p>
           </div>
 
           <p
-            className="mt-5 text-center text-[10px] text-[#25253A] tracking-wider"
+            className="mt-5 text-center text-[10px] text-[#CBD5E1] tracking-wider"
             style={{ fontFamily: 'var(--font-mono)' }}
           >
             demo: admin@borderlesstech.com · Admin@123

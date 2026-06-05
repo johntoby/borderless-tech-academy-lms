@@ -2,34 +2,41 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Obsidian Gold Design System ── */
+/* ── BTA Light Design System ── */
 :root {
-  --bg:            #07070A;
-  --bg-alt:        #0B0B0F;
-  --surface:       #111116;
-  --surface-2:     #17171D;
-  --border:        #1D1D26;
-  --border-bright: #282835;
+  --bg:            #F8FAFC;
+  --bg-alt:        #FFFFFF;
+  --surface:       #FFFFFF;
+  --surface-2:     #F1F5F9;
+  --border:        #E2E8F0;
+  --border-bright: #CBD5E1;
+
+  --blue:          #1D4ED8;
+  --blue-mid:      #2563EB;
+  --blue-light:    #3B82F6;
+  --blue-dim:      rgba(29, 78, 216, 0.07);
+  --blue-glow:     rgba(29, 78, 216, 0.14);
+  --blue-border:   rgba(29, 78, 216, 0.18);
 
   --gold:          #D4A853;
   --gold-light:    #E8C070;
   --gold-dim:      rgba(212, 168, 83, 0.10);
-  --gold-glow:     rgba(212, 168, 83, 0.22);
+  --gold-glow:     rgba(212, 168, 83, 0.20);
   --gold-border:   rgba(212, 168, 83, 0.28);
 
-  --success:       #34C9A0;
-  --warning:       #E68B35;
-  --danger:        #EC5454;
-  --purple:        #9B72EA;
+  --success:       #10B981;
+  --warning:       #F59E0B;
+  --danger:        #EF4444;
+  --purple:        #8B5CF6;
 
-  --text-1:        #DDDDE8;
-  --text-2:        #65657A;
-  --text-3:        #32324A;
+  --text-1:        #0F172A;
+  --text-2:        #475569;
+  --text-3:        #94A3B8;
 }
 
 * { box-sizing: border-box; }
 
-html { color-scheme: dark; }
+html { color-scheme: light; }
 
 body {
   color:            var(--text-1);
@@ -39,14 +46,14 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle dot-grid background */
+/* Subtle dot-grid texture */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: radial-gradient(
     circle,
-    rgba(212, 168, 83, 0.032) 1px,
+    rgba(148, 163, 184, 0.28) 1px,
     transparent 1px
   );
   background-size: 28px 28px;
@@ -54,10 +61,8 @@ body::before {
   z-index: 0;
 }
 
-/* All direct children sit above the dot grid */
 body > * { position: relative; z-index: 1; }
 
-/* Headings inherit display font */
 h1, h2, h3, h4 {
   font-family: var(--font-syne), system-ui, sans-serif;
 }
@@ -87,9 +92,9 @@ h1, h2, h3, h4 {
   to { transform: rotate(360deg); }
 }
 
-@keyframes goldPulse {
-  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
-  50%       { box-shadow: 0 0 0 6px transparent; }
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
 }
 
 /* ── Utility classes ── */
@@ -98,7 +103,6 @@ h1, h2, h3, h4 {
   .animate-fade-scale { animation: fadeInScale 0.22s ease both; }
   .animate-slide-in   { animation: slideInRight 0.28s ease both; }
 
-  /* Override Tailwind's tabular-nums to use mono font */
   .tabular-nums {
     font-family: var(--font-mono), monospace;
     font-variant-numeric: tabular-nums;
@@ -107,9 +111,9 @@ h1, h2, h3, h4 {
   .skeleton {
     background: linear-gradient(
       90deg,
-      var(--surface)   25%,
-      var(--surface-2) 50%,
-      var(--surface)   75%
+      #F1F5F9 25%,
+      #E2E8F0 50%,
+      #F1F5F9 75%
     );
     background-size: 800px 100%;
     animation: shimmer 1.6s infinite linear;
@@ -117,23 +121,29 @@ h1, h2, h3, h4 {
   }
 
   .glass {
-    background: rgba(17, 17, 22, 0.72);
+    background: rgba(255, 255, 255, 0.82);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
 
-  .glow-gold {
-    box-shadow: 0 0 24px rgba(212, 168, 83, 0.18);
+  .glow-blue {
+    box-shadow: 0 0 24px rgba(29, 78, 216, 0.12);
   }
 
   .text-gradient {
+    background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 50%, #1D4ED8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
     background: linear-gradient(135deg, #D4A853 0%, #E8C070 50%, #D4A853 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Gold accent scrollbar */
   .scrollbar-thin {
     scrollbar-width: thin;
     scrollbar-color: var(--border) transparent;
@@ -145,21 +155,21 @@ h1, h2, h3, h4 {
     border-radius: 99px;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgba(212, 168, 83, 0.3);
+    background: rgba(29, 78, 216, 0.25);
   }
 }
 
 /* ── Focus ring ── */
 :focus-visible {
-  outline: 2px solid rgba(212, 168, 83, 0.65);
+  outline: 2px solid rgba(29, 78, 216, 0.55);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(212, 168, 83, 0.18);
-  color: #E8C070;
+  background: rgba(29, 78, 216, 0.12);
+  color: #1D4ED8;
 }
 
 a { transition: color 0.15s ease; }

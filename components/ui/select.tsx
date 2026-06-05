@@ -13,7 +13,7 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
     return (
       <div className="flex flex-col gap-1.5">
         {label && (
-          <label htmlFor={id} className="text-[10px] font-semibold text-[#65657A] uppercase tracking-[0.12em]">
+          <label htmlFor={id} className="text-[10px] font-semibold text-[#64748B] uppercase tracking-[0.12em]">
             {label}
           </label>
         )}
@@ -22,29 +22,29 @@ export const Select = forwardRef<HTMLSelectElement, SelectProps>(
             ref={ref}
             id={id}
             className={cn(
-              'w-full pl-3 pr-8 py-2.5 bg-[#0B0B0F] border rounded-xl text-sm text-[#DDDDE8]',
+              'w-full pl-3 pr-8 py-2.5 bg-white border rounded-xl text-sm text-[#0F172A]',
               'appearance-none cursor-pointer',
               'transition-all duration-200',
-              'focus:outline-none focus:ring-2 focus:ring-[rgba(212,168,83,0.28)] focus:border-[rgba(212,168,83,0.45)]',
+              'focus:outline-none focus:ring-2 focus:ring-[rgba(29,78,216,0.18)] focus:border-[rgba(29,78,216,0.40)]',
               error
-                ? 'border-[rgba(236,84,84,0.45)]'
-                : 'border-[#1D1D26] hover:border-[#282835]',
+                ? 'border-[rgba(239,68,68,0.50)]'
+                : 'border-[#E2E8F0] hover:border-[#CBD5E1]',
               className
             )}
             {...props}
           >
             {options.map(opt => (
-              <option key={opt.value} value={opt.value} className="bg-[#111116]">
+              <option key={opt.value} value={opt.value}>
                 {opt.label}
               </option>
             ))}
           </select>
           <ChevronDown
             size={14}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#45455A] pointer-events-none"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94A3B8] pointer-events-none"
           />
         </div>
-        {error && <p className="text-xs text-[#EC5454]">⚠ {error}</p>}
+        {error && <p className="text-xs text-[#EF4444]">⚠ {error}</p>}
       </div>
     )
   }

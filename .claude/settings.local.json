@@ -3,7 +3,9 @@
     "allow": [
       "WebFetch(domain:raw.githubusercontent.com)",
       "PowerShell(Invoke-WebRequest -Uri \"https://raw.githubusercontent.com/anthropics/skills/main/skills/frontend-design/SKILL.md\" -UseBasicParsing)",
-      "Bash(npm run *)"
+      "Bash(npm run *)",
+      "Bash(npm install *)",
+      "WebFetch(domain:www.borderlesstechacademy.com)"
     ]
   }
 }

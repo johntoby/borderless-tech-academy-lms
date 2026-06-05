@@ -34,6 +34,18 @@ const TYPE_ICONS = {
   RESOURCE: LinkIcon,
 }
 
+const TYPE_COLORS: Record<string, string> = {
+  NOTE: 'text-[#1D4ED8]',
+  VIDEO: 'text-[#D97706]',
+  RESOURCE: 'text-[#059669]',
+}
+
+const TYPE_BG: Record<string, string> = {
+  NOTE: 'bg-[rgba(29,78,216,0.08)]',
+  VIDEO: 'bg-[rgba(245,158,11,0.08)]',
+  RESOURCE: 'bg-[rgba(16,185,129,0.08)]',
+}
+
 const TYPE_BADGE: Record<string, 'info' | 'warning' | 'success'> = {
   NOTE: 'info',
   VIDEO: 'warning',
@@ -96,22 +108,14 @@ export default function CourseContentPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...form, order: parseInt(form.order) }),
         })
-        if (res.ok) {
-          toast.success('Content updated')
-          setModalOpen(false)
-          loadData()
-        }
+        if (res.ok) { toast.success('Content updated'); setModalOpen(false); loadData() }
       } else {
         const res = await fetch(`/api/courses/${id}/content`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ ...form, order: parseInt(form.order) }),
         })
-        if (res.ok) {
-          toast.success('Content added')
-          setModalOpen(false)
-          loadData()
-        }
+        if (res.ok) { toast.success('Content added'); setModalOpen(false); loadData() }
       }
     } finally {
       setSaving(false)
@@ -139,25 +143,25 @@ export default function CourseContentPage() {
           <Button variant="ghost" size="sm"><ArrowLeft size={16} /> Back</Button>
         </Link>
         <div>
-          <h1 className="text-xl font-bold text-white">{course?.title || 'Course Content'}</h1>
+          <h1 className="text-xl font-bold text-[#0F172A]">{course?.title || 'Course Content'}</h1>
           {course && <Badge variant="info" className="mt-1">{course.cohort}</Badge>}
         </div>
       </div>
 
       <div className="flex items-center justify-between">
-        <p className="text-slate-400">{content.length} content item{content.length !== 1 ? 's' : ''}</p>
+        <p className="text-[#64748B]">{content.length} content item{content.length !== 1 ? 's' : ''}</p>
         <Button onClick={openAdd}><Plus size={16} /> Add Content</Button>
       </div>
 
       {loading ? (
         <div className="space-y-3">
-          {[...Array(3)].map((_, i) => <div key={i} className="h-20 bg-[#1E293B] rounded-xl animate-pulse" />)}
+          {[...Array(3)].map((_, i) => <div key={i} className="skeleton h-20 rounded-xl" />)}
         </div>
       ) : !content.length ? (
         <Card className="text-center py-16">
-          <FileText size={48} className="mx-auto mb-3 text-slate-600" />
-          <p className="text-slate-400 font-medium">No content yet</p>
-          <p className="text-slate-500 text-sm mt-1">Add notes, videos, and resources for students</p>
+          <FileText size={48} className="mx-auto mb-3 text-[#CBD5E1]" />
+          <p className="text-[#475569] font-medium">No content yet</p>
+          <p className="text-[#94A3B8] text-sm mt-1">Add notes, videos, and resources for students</p>
           <Button className="mt-4" onClick={openAdd}><Plus size={16} /> Add Content</Button>
         </Card>
       ) : (
@@ -165,19 +169,19 @@ export default function CourseContentPage() {
           {content.map(item => {
             const Icon = TYPE_ICONS[item.type]
             return (
-              <Card key={item.id} className="flex items-center gap-4 hover:border-sky-500/30 transition-colors">
-                <div className="w-10 h-10 rounded-lg bg-slate-800 flex items-center justify-center shrink-0">
-                  <Icon size={18} className="text-sky-400" />
+              <Card key={item.id} className="flex items-center gap-4 hover:border-[rgba(29,78,216,0.20)] transition-colors">
+                <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${TYPE_BG[item.type]}`}>
+                  <Icon size={18} className={TYPE_COLORS[item.type]} />
                 </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-medium text-white">{item.title}</span>
+                    <span className="font-medium text-[#0F172A]">{item.title}</span>
                     <Badge variant={TYPE_BADGE[item.type]}>{item.type}</Badge>
                   </div>
                   {item.description && (
-                    <p className="text-sm text-slate-400 mt-0.5 truncate">{item.description}</p>
+                    <p className="text-sm text-[#64748B] mt-0.5 truncate">{item.description}</p>
                   )}
-                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-sky-400 hover:text-sky-300 flex items-center gap-1 mt-1 truncate">
+                  <a href={item.url} target="_blank" rel="noopener noreferrer" className="text-xs text-[#1D4ED8] hover:text-[#1E40AF] flex items-center gap-1 mt-1 truncate">
                     <ExternalLink size={10} /> {item.url}
                   </a>
                 </div>

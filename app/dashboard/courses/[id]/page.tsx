@@ -18,9 +18,9 @@ interface Course {
 }
 
 const TYPE_CONFIG = {
-  NOTE:     { icon: FileText,  color: 'text-sky-400',     bg: 'bg-sky-500/10',     border: 'border-sky-500/15',     label: 'Note',     badge: 'info' as const },
-  VIDEO:    { icon: Video,     color: 'text-amber-400',   bg: 'bg-amber-500/10',   border: 'border-amber-500/15',   label: 'Video',    badge: 'warning' as const },
-  RESOURCE: { icon: LinkIcon,  color: 'text-emerald-400', bg: 'bg-emerald-500/10', border: 'border-emerald-500/15', label: 'Resource', badge: 'success' as const },
+  NOTE:     { icon: FileText,  color: 'text-[#1D4ED8]',  bg: 'bg-[rgba(29,78,216,0.08)]',   border: 'border-[rgba(29,78,216,0.14)]',   label: 'Note',     badge: 'info' as const },
+  VIDEO:    { icon: Video,     color: 'text-[#D97706]',  bg: 'bg-[rgba(245,158,11,0.08)]',  border: 'border-[rgba(245,158,11,0.14)]',  label: 'Video',    badge: 'warning' as const },
+  RESOURCE: { icon: LinkIcon,  color: 'text-[#059669]',  bg: 'bg-[rgba(16,185,129,0.08)]',  border: 'border-[rgba(16,185,129,0.14)]',  label: 'Resource', badge: 'success' as const },
 }
 
 function ContentItem({ item, index }: { item: Content; index: number }) {
@@ -33,22 +33,22 @@ function ContentItem({ item, index }: { item: Content; index: number }) {
       rel="noopener noreferrer"
       className={cn(
         'flex items-center gap-3 p-3 rounded-xl border',
-        'bg-slate-800/30 hover:bg-slate-800/70',
-        'border-slate-700/30 hover:border-sky-500/20',
-        'transition-all duration-200 group animate-fade-in'
+        'bg-[#F8FAFC] hover:bg-white',
+        'border-[#E2E8F0] hover:border-[rgba(29,78,216,0.18)]',
+        'hover:shadow-sm transition-all duration-200 group animate-fade-in'
       )}
       style={{ animationDelay: `${index * 40}ms` }}
     >
-      <div className={cn('w-9 h-9 rounded-xl flex items-center justify-center shrink-0', cfg.bg, cfg.border, 'border')}>
+      <div className={cn('w-9 h-9 rounded-xl flex items-center justify-center shrink-0 border', cfg.bg, cfg.border)}>
         <Icon size={15} className={cfg.color} />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-slate-200 group-hover:text-white transition-colors truncate">{item.title}</p>
-        {item.description && <p className="text-xs text-slate-500 truncate mt-0.5">{item.description}</p>}
+        <p className="text-sm font-medium text-[#0F172A] group-hover:text-[#1D4ED8] transition-colors truncate">{item.title}</p>
+        {item.description && <p className="text-xs text-[#94A3B8] truncate mt-0.5">{item.description}</p>}
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <Badge variant={cfg.badge} className="hidden sm:flex text-[10px]">{cfg.label}</Badge>
-        <ExternalLink size={13} className="text-slate-600 group-hover:text-sky-400 transition-colors" />
+        <ExternalLink size={13} className="text-[#CBD5E1] group-hover:text-[#1D4ED8] transition-colors" />
       </div>
     </a>
   )
@@ -58,7 +58,7 @@ function Section({ title, items }: { title: string; items: Content[] }) {
   if (!items.length) return null
   return (
     <div>
-      <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-2">{title}</p>
+      <p className="text-xs font-semibold text-[#94A3B8] uppercase tracking-widest mb-2">{title}</p>
       <div className="space-y-2">
         {items.map((item, i) => <ContentItem key={item.id} item={item} index={i} />)}
       </div>
@@ -85,7 +85,7 @@ export default function CourseDetailPage() {
     )
   }
 
-  if (!course) return <div className="text-slate-400 text-sm">Course not found</div>
+  if (!course) return <div className="text-[#64748B] text-sm">Course not found</div>
 
   const notes     = course.content.filter(c => c.type === 'NOTE')
   const videos    = course.content.filter(c => c.type === 'VIDEO')
@@ -98,20 +98,20 @@ export default function CourseDetailPage() {
       </Link>
 
       {/* Header card */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-sky-500/8 to-transparent border border-sky-500/15 rounded-2xl p-5">
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-sky-500/5 to-transparent" />
+      <div className="relative overflow-hidden bg-gradient-to-r from-[rgba(29,78,216,0.06)] to-transparent border border-[rgba(29,78,216,0.12)] rounded-2xl p-5">
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[rgba(29,78,216,0.04)] to-transparent" />
         <div className="flex items-start gap-4 relative">
-          <div className="w-11 h-11 rounded-xl bg-sky-500/15 border border-sky-500/20 flex items-center justify-center shrink-0">
-            <BookOpen size={20} className="text-sky-400" />
+          <div className="w-11 h-11 rounded-xl bg-[rgba(29,78,216,0.10)] border border-[rgba(29,78,216,0.16)] flex items-center justify-center shrink-0">
+            <BookOpen size={20} className="text-[#1D4ED8]" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white leading-snug">{course.title}</h1>
-            <p className="text-sm text-slate-400 mt-1">{course.description}</p>
+            <h1 className="text-lg font-bold text-[#0F172A] leading-snug">{course.title}</h1>
+            <p className="text-sm text-[#64748B] mt-1">{course.description}</p>
             <div className="flex items-center gap-2 mt-3">
               <Badge variant="info">{course.cohort}</Badge>
-              <span className="text-xs text-slate-500">Week {course.weekNumber}</span>
-              <span className="text-xs text-slate-600">·</span>
-              <span className="text-xs text-slate-500">{course.content.length} resource{course.content.length !== 1 ? 's' : ''}</span>
+              <span className="text-xs text-[#94A3B8]">Week {course.weekNumber}</span>
+              <span className="text-xs text-[#CBD5E1]">·</span>
+              <span className="text-xs text-[#94A3B8]">{course.content.length} resource{course.content.length !== 1 ? 's' : ''}</span>
             </div>
           </div>
         </div>
@@ -119,16 +119,16 @@ export default function CourseDetailPage() {
 
       {!course.content.length ? (
         <Card className="text-center py-14">
-          <FileText size={36} className="mx-auto mb-3 text-slate-700" />
-          <p className="text-slate-400 text-sm">No content available yet</p>
-          <p className="text-slate-600 text-xs mt-1">Check back later — the instructor will add materials here</p>
+          <FileText size={36} className="mx-auto mb-3 text-[#CBD5E1]" />
+          <p className="text-[#64748B] text-sm">No content available yet</p>
+          <p className="text-[#94A3B8] text-xs mt-1">Check back later — the instructor will add materials here</p>
         </Card>
       ) : (
         <Card className="space-y-6">
           <Section title="Lecture Notes" items={notes} />
-          {notes.length > 0 && videos.length > 0 && <div className="border-t border-slate-800" />}
+          {notes.length > 0 && videos.length > 0 && <div className="border-t border-[#E2E8F0]" />}
           <Section title="Video Lectures" items={videos} />
-          {(notes.length > 0 || videos.length > 0) && resources.length > 0 && <div className="border-t border-slate-800" />}
+          {(notes.length > 0 || videos.length > 0) && resources.length > 0 && <div className="border-t border-[#E2E8F0]" />}
           <Section title="Resources" items={resources} />
         </Card>
       )}

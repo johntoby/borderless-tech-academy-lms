@@ -110,16 +110,15 @@ export default function AssignmentDetailPage() {
   if (loading) {
     return (
       <div className="space-y-4">
-        <div className="h-8 w-48 bg-[#1E293B] rounded animate-pulse" />
-        <div className="h-48 bg-[#1E293B] rounded-xl animate-pulse" />
+        <div className="skeleton h-8 w-48 rounded-lg" />
+        <div className="skeleton h-48 rounded-xl" />
       </div>
     )
   }
 
-  if (!assignment) return <div className="text-slate-400">Assignment not found</div>
+  if (!assignment) return <div className="text-[#64748B]">Assignment not found</div>
 
   const overdue = isOverdue(assignment.dueDate)
-  const canSubmit = !overdue || mySubmission !== null
 
   return (
     <div className="space-y-6">
@@ -132,7 +131,7 @@ export default function AssignmentDetailPage() {
       {/* Assignment card */}
       <Card>
         <div className="flex items-start justify-between gap-4 mb-4">
-          <h1 className="text-xl font-bold text-white">{assignment.title}</h1>
+          <h1 className="text-xl font-bold text-[#0F172A]">{assignment.title}</h1>
           {overdue && !mySubmission ? (
             <Badge variant="danger">Overdue</Badge>
           ) : mySubmission?.status === 'REVIEWED' ? (
@@ -143,34 +142,34 @@ export default function AssignmentDetailPage() {
             <Badge variant="info">Open</Badge>
           )}
         </div>
-        <div className="flex items-center gap-4 text-xs text-slate-500 flex-wrap mb-4">
+        <div className="flex items-center gap-4 text-xs text-[#64748B] flex-wrap mb-4">
           <span>{assignment.course.title}</span>
           <Badge variant="info">{assignment.course.cohort}</Badge>
-          <span className={`flex items-center gap-1 ${overdue ? 'text-red-400' : 'text-amber-400'}`}>
+          <span className={`flex items-center gap-1 ${overdue ? 'text-[#EF4444]' : 'text-[#F59E0B]'}`}>
             <Calendar size={11} />
             {overdue ? 'Deadline passed' : 'Due'}: {formatDate(assignment.dueDate)}
           </span>
-          <span>Max: <strong className="text-white">{assignment.maxScore} pts</strong></span>
+          <span>Max: <strong className="text-[#0F172A]">{assignment.maxScore} pts</strong></span>
         </div>
-        <div className="bg-slate-800/50 rounded-lg p-4">
-          <p className="text-sm text-slate-300 whitespace-pre-wrap">{assignment.description}</p>
+        <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-4">
+          <p className="text-sm text-[#475569] whitespace-pre-wrap">{assignment.description}</p>
         </div>
       </Card>
 
       {/* Grade result */}
       {mySubmission?.status === 'REVIEWED' && (
-        <Card className="border-emerald-500/30 bg-emerald-500/5">
+        <Card className="border-[rgba(16,185,129,0.25)] bg-[rgba(16,185,129,0.04)]">
           <div className="flex items-center gap-3 mb-3">
-            <Star size={20} className="text-emerald-400" />
-            <h2 className="font-semibold text-white">Your Grade</h2>
+            <Star size={20} className="text-[#10B981]" />
+            <h2 className="font-semibold text-[#0F172A]">Your Grade</h2>
           </div>
-          <div className="text-3xl font-bold text-emerald-400 mb-2">
-            {mySubmission.score} <span className="text-lg text-slate-400">/ {assignment.maxScore}</span>
+          <div className="text-3xl font-bold text-[#059669] mb-2">
+            {mySubmission.score} <span className="text-lg text-[#94A3B8]">/ {assignment.maxScore}</span>
           </div>
           {mySubmission.feedback && (
-            <div className="bg-slate-800 rounded-lg p-3 mt-3">
-              <p className="text-xs font-medium text-slate-400 mb-1">Instructor Feedback</p>
-              <p className="text-sm text-slate-300 whitespace-pre-wrap">{mySubmission.feedback}</p>
+            <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-3 mt-3">
+              <p className="text-xs font-medium text-[#64748B] mb-1">Instructor Feedback</p>
+              <p className="text-sm text-[#475569] whitespace-pre-wrap">{mySubmission.feedback}</p>
             </div>
           )}
         </Card>
@@ -180,33 +179,31 @@ export default function AssignmentDetailPage() {
       {!overdue || mySubmission ? (
         <Card>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-white">
+            <h2 className="font-semibold text-[#0F172A]">
               {mySubmission ? 'Your Submission' : 'Submit Assignment'}
             </h2>
             {mySubmission && (
-              <span className="text-xs text-slate-400">
+              <span className="text-xs text-[#94A3B8]">
                 Submitted {formatDateTime(mySubmission.submittedAt)}
               </span>
             )}
           </div>
 
           {mySubmission?.status === 'REVIEWED' ? (
-            /* Read-only view of submitted content */
             <div className="space-y-3">
               {mySubmission.submissionText && (
-                <div className="bg-slate-800 rounded-lg p-4 text-sm text-slate-300 whitespace-pre-wrap">
+                <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-4 text-sm text-[#475569] whitespace-pre-wrap">
                   {mySubmission.submissionText}
                 </div>
               )}
               {mySubmission.fileUrl && (
                 <a href={mySubmission.fileUrl} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-sky-400 hover:text-sky-300">
+                  className="flex items-center gap-2 text-sm text-[#1D4ED8] hover:text-[#1E40AF]">
                   <FileText size={14} /> {mySubmission.fileName || 'View file'}
                 </a>
               )}
             </div>
           ) : (
-            /* Submission form */
             <div className="space-y-4">
               <Textarea
                 label="Text submission"
@@ -214,11 +211,10 @@ export default function AssignmentDetailPage() {
                 rows={6}
                 value={text}
                 onChange={e => setText(e.target.value)}
-                disabled={false}
               />
 
               <div>
-                <p className="text-sm font-medium text-slate-300 mb-2">Or upload a file (PDF, DOCX, ZIP — max 10MB)</p>
+                <p className="text-sm font-medium text-[#475569] mb-2">Or upload a file (PDF, DOCX, ZIP — max 10MB)</p>
                 <div className="flex items-center gap-3">
                   <input
                     ref={fileRef}
@@ -236,12 +232,12 @@ export default function AssignmentDetailPage() {
                     <Upload size={14} /> Choose File
                   </Button>
                   {uploadedFile && (
-                    <div className="flex items-center gap-2 text-sm text-emerald-400">
+                    <div className="flex items-center gap-2 text-sm text-[#10B981]">
                       <CheckCircle size={14} />
                       {uploadedFile.fileName}
                       <button
                         onClick={() => setUploadedFile(null)}
-                        className="text-slate-500 hover:text-red-400 ml-1"
+                        className="text-[#94A3B8] hover:text-[#EF4444] ml-1"
                       >×</button>
                     </div>
                   )}
@@ -258,16 +254,16 @@ export default function AssignmentDetailPage() {
                 {mySubmission ? 'Resubmit' : 'Submit Assignment'}
               </Button>
               {mySubmission && (
-                <p className="text-xs text-slate-500">Resubmitting will replace your previous submission</p>
+                <p className="text-xs text-[#94A3B8]">Resubmitting will replace your previous submission</p>
               )}
             </div>
           )}
         </Card>
       ) : (
-        <Card className="text-center py-10 border-red-500/20">
-          <AlertCircle size={36} className="mx-auto mb-3 text-red-400" />
-          <p className="text-slate-300 font-medium">Submission Closed</p>
-          <p className="text-slate-500 text-sm mt-1">The deadline for this assignment has passed</p>
+        <Card className="text-center py-10 border-[rgba(239,68,68,0.20)]">
+          <AlertCircle size={36} className="mx-auto mb-3 text-[#EF4444]" />
+          <p className="text-[#475569] font-medium">Submission Closed</p>
+          <p className="text-[#94A3B8] text-sm mt-1">The deadline for this assignment has passed</p>
         </Card>
       )}
     </div>

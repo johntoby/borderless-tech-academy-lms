@@ -65,12 +65,12 @@ export default function StudentAssignmentsPage() {
   return (
     <div className="space-y-5 animate-fade-in">
       <div>
-        <h1 className="text-xl font-bold text-white tracking-tight">Assignments</h1>
-        <p className="text-sm text-slate-500 mt-0.5">Submit your work and track grades</p>
+        <h1 className="text-xl font-bold text-[#0F172A] tracking-tight">Assignments</h1>
+        <p className="text-sm text-[#64748B] mt-0.5">Submit your work and track grades</p>
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-1.5 p-1 bg-slate-800/50 rounded-xl w-fit border border-slate-700/50">
+      <div className="flex gap-1.5 p-1 bg-[#F1F5F9] rounded-xl w-fit border border-[#E2E8F0]">
         {filters.map(f => (
           <button
             key={f.key}
@@ -78,12 +78,12 @@ export default function StudentAssignmentsPage() {
             className={cn(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all',
               filter === f.key
-                ? 'bg-sky-500 text-white shadow-sm shadow-sky-500/30'
-                : 'text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'
+                ? 'bg-[#1D4ED8] text-white shadow-sm shadow-[rgba(29,78,216,0.25)]'
+                : 'text-[#64748B] hover:text-[#0F172A] hover:bg-white'
             )}
           >
             {f.label}
-            <span className={cn('px-1.5 py-0.5 rounded-md text-[10px] tabular-nums', filter === f.key ? 'bg-sky-400/30' : 'bg-slate-700/60 text-slate-500')}>
+            <span className={cn('px-1.5 py-0.5 rounded-md text-[10px] tabular-nums', filter === f.key ? 'bg-white/20' : 'bg-[#E2E8F0] text-[#94A3B8]')}>
               {counts[f.key]}
             </span>
           </button>
@@ -94,8 +94,8 @@ export default function StudentAssignmentsPage() {
         <div className="space-y-3">{[...Array(4)].map((_, i) => <div key={i} className="skeleton h-24 rounded-xl" />)}</div>
       ) : !filtered.length ? (
         <Card className="text-center py-16">
-          <ClipboardList size={36} className="mx-auto mb-3 text-slate-700" />
-          <p className="text-slate-400 text-sm font-medium">{filter !== 'all' ? 'No assignments in this category' : 'No assignments yet'}</p>
+          <ClipboardList size={36} className="mx-auto mb-3 text-[#CBD5E1]" />
+          <p className="text-[#64748B] text-sm font-medium">{filter !== 'all' ? 'No assignments in this category' : 'No assignments yet'}</p>
         </Card>
       ) : (
         <div className="space-y-3">
@@ -108,28 +108,28 @@ export default function StudentAssignmentsPage() {
             return (
               <div
                 key={a.id}
-                className="bg-[#1E293B] border border-slate-700/60 rounded-xl p-4 hover:border-slate-600 transition-all duration-200 animate-fade-in group"
+                className="bg-white border border-[#E2E8F0] rounded-xl p-4 hover:border-[#CBD5E1] hover:shadow-sm transition-all duration-200 animate-fade-in group"
                 style={{ animationDelay: `${i * 30}ms` }}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                      {status === 'graded'    && <CheckCircle size={14} className="text-emerald-400 shrink-0" />}
-                      {status === 'submitted' && <Clock size={14} className="text-amber-400 shrink-0" />}
-                      {status === 'overdue'   && <AlertCircle size={14} className="text-red-400 shrink-0" />}
-                      {status === 'pending'   && <Clock size={14} className={cn('shrink-0', days <= 2 ? 'text-amber-400' : 'text-slate-600')} />}
-                      <h3 className="font-semibold text-white text-sm">{a.title}</h3>
+                      {status === 'graded'    && <CheckCircle size={14} className="text-[#10B981] shrink-0" />}
+                      {status === 'submitted' && <Clock size={14} className="text-[#F59E0B] shrink-0" />}
+                      {status === 'overdue'   && <AlertCircle size={14} className="text-[#EF4444] shrink-0" />}
+                      {status === 'pending'   && <Clock size={14} className={cn('shrink-0', days <= 2 ? 'text-[#F59E0B]' : 'text-[#CBD5E1]')} />}
+                      <h3 className="font-semibold text-[#0F172A] text-sm">{a.title}</h3>
                       {status === 'graded' && sub?.score !== null && (
-                        <span className="flex items-center gap-1 text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-full">
+                        <span className="flex items-center gap-1 text-xs font-medium text-[#059669] bg-[rgba(16,185,129,0.08)] border border-[rgba(16,185,129,0.18)] px-2 py-0.5 rounded-full">
                           <Star size={10} /> {sub?.score}/{a.maxScore}
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-slate-500 line-clamp-1 mb-2">{a.description}</p>
+                    <p className="text-xs text-[#64748B] line-clamp-1 mb-2">{a.description}</p>
                     <div className="flex items-center gap-3 text-xs flex-wrap">
-                      <span className="text-slate-600">{a.course.title}</span>
+                      <span className="text-[#94A3B8]">{a.course.title}</span>
                       <Badge variant="info" className="text-[10px]">{a.course.cohort}</Badge>
-                      <span className={cn('flex items-center gap-1', overdue && status === 'pending' ? 'text-red-400/70' : 'text-slate-600')}>
+                      <span className={cn('flex items-center gap-1', overdue && status === 'pending' ? 'text-[#EF4444]' : 'text-[#94A3B8]')}>
                         <Calendar size={10} />
                         {overdue ? `Closed ${formatDate(a.dueDate)}` : `${days}d · ${formatDate(a.dueDate)}`}
                       </span>

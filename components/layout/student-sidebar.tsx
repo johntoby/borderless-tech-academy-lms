@@ -29,18 +29,18 @@ function NavLink({ href, label, icon: Icon, active, onClick }: {
         'relative flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium',
         'transition-all duration-200 group',
         active
-          ? 'bg-[rgba(212,168,83,0.08)] text-[#D4A853]'
-          : 'text-[#45455A] hover:text-[#9090A8] hover:bg-[#17171D]'
+          ? 'bg-[rgba(29,78,216,0.08)] text-[#1D4ED8]'
+          : 'text-[#64748B] hover:text-[#0F172A] hover:bg-[#F8FAFC]'
       )}
     >
       {active && (
-        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-5 bg-[#D4A853] rounded-full" />
+        <span className="absolute left-0 top-1/2 -translate-y-1/2 w-[2px] h-5 bg-[#1D4ED8] rounded-full" />
       )}
       <Icon
         size={16}
         className={cn(
           'transition-colors shrink-0',
-          active ? 'text-[#D4A853]' : 'text-[#32324A] group-hover:text-[#65657A]'
+          active ? 'text-[#1D4ED8]' : 'text-[#94A3B8] group-hover:text-[#64748B]'
         )}
       />
       {label}
@@ -59,25 +59,25 @@ function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
         <div className="flex items-center gap-3">
           <Image src="/logo.png" alt="BTA Logo" width={32} height={32} className="rounded-lg shrink-0" />
           <div>
-            <p className="text-[11px] font-bold text-[#DDDDE8] tracking-[0.08em] uppercase leading-tight" style={{ fontFamily: 'var(--font-syne)' }}>
+            <p className="text-[11px] font-bold text-[#0F172A] tracking-[0.08em] uppercase leading-tight" style={{ fontFamily: 'var(--font-syne)' }}>
               Borderless Tech
             </p>
-            <p className="text-[9px] text-[#D4A853] font-medium tracking-[0.2em] uppercase" style={{ fontFamily: 'var(--font-mono)' }}>
+            <p className="text-[9px] text-[#1D4ED8] font-medium tracking-[0.2em] uppercase" style={{ fontFamily: 'var(--font-mono)' }}>
               Academy
             </p>
           </div>
         </div>
       </div>
 
-      <div className="mx-5 h-px bg-[#1D1D26]" />
+      <div className="mx-5 h-px bg-[#E2E8F0]" />
 
       {/* Nav */}
       <nav className="flex-1 px-3 py-5 space-y-0.5 overflow-y-auto scrollbar-thin">
         <p
-          className="px-3 mb-3 text-[9px] font-medium text-[#32324A] uppercase tracking-[0.2em]"
+          className="px-3 mb-3 text-[9px] font-medium text-[#CBD5E1] uppercase tracking-[0.2em]"
           style={{ fontFamily: 'var(--font-mono)' }}
         >
-          // Navigation
+          Navigation
         </p>
         {navItems.map(item => {
           const active = item.exact
@@ -94,28 +94,28 @@ function SidebarContent({ onNavClick }: { onNavClick?: () => void }) {
         })}
       </nav>
 
-      <div className="mx-5 h-px bg-[#1D1D26]" />
+      <div className="mx-5 h-px bg-[#E2E8F0]" />
 
       {/* User + sign out */}
       <div className="px-3 py-4 space-y-1">
         {session?.user && (
-          <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#17171D] border border-[#1D1D26] mb-2">
-            <div className="w-7 h-7 rounded-full bg-[rgba(212,168,83,0.12)] border border-[rgba(212,168,83,0.2)] flex items-center justify-center shrink-0">
-              <span className="text-[10px] font-bold text-[#D4A853]">
+          <div className="flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-[#F8FAFC] border border-[#E2E8F0] mb-2">
+            <div className="w-7 h-7 rounded-full bg-[rgba(29,78,216,0.10)] border border-[rgba(29,78,216,0.18)] flex items-center justify-center shrink-0">
+              <span className="text-[10px] font-bold text-[#1D4ED8]">
                 {session.user.name?.[0]?.toUpperCase() ?? '?'}
               </span>
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-semibold text-[#DDDDE8] truncate leading-tight">{session.user.name}</p>
-              <p className="text-[10px] text-[#45455A] truncate">{session.user.email}</p>
+              <p className="text-xs font-semibold text-[#0F172A] truncate leading-tight">{session.user.name}</p>
+              <p className="text-[10px] text-[#94A3B8] truncate">{session.user.email}</p>
             </div>
           </div>
         )}
         <button
           onClick={() => signOut({ callbackUrl: '/login' })}
-          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-[#45455A] hover:bg-[rgba(236,84,84,0.07)] hover:text-[#EC5454] transition-all duration-200 group"
+          className="flex items-center gap-3 w-full px-3 py-2.5 rounded-xl text-sm font-medium text-[#64748B] hover:bg-[rgba(239,68,68,0.06)] hover:text-[#EF4444] transition-all duration-200 group"
         >
-          <LogOut size={15} className="group-hover:text-[#EC5454] transition-colors shrink-0" />
+          <LogOut size={15} className="group-hover:text-[#EF4444] transition-colors shrink-0" />
           Sign Out
         </button>
       </div>
@@ -128,22 +128,22 @@ export function StudentSidebar() {
 
   return (
     <>
-      <aside className="hidden md:flex w-60 shrink-0 flex-col bg-[#0B0B0F] border-r border-[#1D1D26] h-screen sticky top-0">
+      <aside className="hidden md:flex w-60 shrink-0 flex-col bg-white border-r border-[#E2E8F0] h-screen sticky top-0 shadow-sm">
         <SidebarContent />
       </aside>
 
       <button
-        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-[#0B0B0F] border border-[#1D1D26] rounded-lg shadow-lg"
+        className="md:hidden fixed top-4 left-4 z-50 p-2 bg-white border border-[#E2E8F0] rounded-lg shadow-sm"
         onClick={() => setOpen(!open)}
         aria-label="Toggle menu"
       >
-        {open ? <X size={18} className="text-[#9090A8]" /> : <Menu size={18} className="text-[#9090A8]" />}
+        {open ? <X size={18} className="text-[#64748B]" /> : <Menu size={18} className="text-[#64748B]" />}
       </button>
 
       {open && (
         <div className="md:hidden fixed inset-0 z-40 flex animate-fade-scale">
-          <div className="absolute inset-0 bg-black/80 backdrop-blur-sm" onClick={() => setOpen(false)} />
-          <aside className="relative w-60 bg-[#0B0B0F] border-r border-[#1D1D26] h-full shadow-2xl">
+          <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm" onClick={() => setOpen(false)} />
+          <aside className="relative w-60 bg-white border-r border-[#E2E8F0] h-full shadow-xl">
             <SidebarContent onNavClick={() => setOpen(false)} />
           </aside>
         </div>

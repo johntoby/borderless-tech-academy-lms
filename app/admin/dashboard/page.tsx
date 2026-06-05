@@ -19,33 +19,33 @@ const statCards = [
     key: 'totalStudents',
     label: 'Total Students',
     icon: Users,
-    iconColor: 'text-[#D4A853]',
-    iconBg: 'bg-[rgba(212,168,83,0.10)]',
-    accent: '#D4A853',
+    iconColor: 'text-[#1D4ED8]',
+    iconBg: 'bg-[rgba(29,78,216,0.08)]',
+    accent: '#1D4ED8',
   },
   {
     key: 'totalCourses',
     label: 'Total Courses',
     icon: BookOpen,
-    iconColor: 'text-[#34C9A0]',
-    iconBg: 'bg-[rgba(52,201,160,0.10)]',
-    accent: '#34C9A0',
+    iconColor: 'text-[#10B981]',
+    iconBg: 'bg-[rgba(16,185,129,0.08)]',
+    accent: '#10B981',
   },
   {
     key: 'pendingSubmissions',
     label: 'Pending Reviews',
     icon: ClipboardList,
-    iconColor: 'text-[#E68B35]',
-    iconBg: 'bg-[rgba(230,139,53,0.10)]',
-    accent: '#E68B35',
+    iconColor: 'text-[#F59E0B]',
+    iconBg: 'bg-[rgba(245,158,11,0.08)]',
+    accent: '#F59E0B',
   },
   {
     key: 'recentStudents',
     label: 'New This Week',
     icon: UserCheck,
-    iconColor: 'text-[#9B72EA]',
-    iconBg: 'bg-[rgba(155,114,234,0.10)]',
-    accent: '#9B72EA',
+    iconColor: 'text-[#8B5CF6]',
+    iconBg: 'bg-[rgba(139,92,246,0.08)]',
+    accent: '#8B5CF6',
     isLength: true,
   },
 ]
@@ -74,19 +74,14 @@ export default function AdminDashboard() {
       {/* Page header */}
       <div className="flex items-center justify-between">
         <div>
-          <p
-            className="text-[9px] text-[#45455A] tracking-[0.25em] uppercase mb-1.5"
-            style={{ fontFamily: 'var(--font-mono)' }}
-          >
-            // Admin
-          </p>
-          <h1 className="text-xl font-bold text-[#DDDDE8] tracking-tight">Dashboard</h1>
+          <h1 className="text-xl font-bold text-[#0F172A] tracking-tight">Dashboard</h1>
+          <p className="text-sm text-[#64748B] mt-0.5">Overview of your academy</p>
         </div>
         <div
-          className="flex items-center gap-2 text-[10px] text-[#45455A] bg-[#111116] px-3 py-1.5 rounded-lg border border-[#1D1D26]"
+          className="flex items-center gap-2 text-[10px] text-[#64748B] bg-white px-3 py-1.5 rounded-lg border border-[#E2E8F0] shadow-sm"
           style={{ fontFamily: 'var(--font-mono)' }}
         >
-          <span className="w-1.5 h-1.5 rounded-full bg-[#34C9A0] animate-pulse shrink-0" />
+          <span className="w-1.5 h-1.5 rounded-full bg-[#10B981] animate-pulse shrink-0" />
           Live data
         </div>
       </div>
@@ -96,9 +91,9 @@ export default function AdminDashboard() {
         {statCards.map(({ key, label, icon: Icon, iconColor, iconBg, accent, isLength }) => (
           <div
             key={key}
-            className="bg-[#111116] border border-[#1D1D26] hover:border-[#282835] rounded-2xl p-5 transition-all duration-200 relative overflow-hidden group"
+            className="bg-white border border-[#E2E8F0] hover:border-[#CBD5E1] rounded-2xl p-5 transition-all duration-200 relative overflow-hidden group shadow-[0_1px_3px_0_rgba(15,23,42,0.06)]"
           >
-            {/* Accent top line */}
+            {/* Accent top line on hover */}
             <div
               className="absolute top-0 left-0 right-0 h-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
               style={{ background: `linear-gradient(90deg, transparent, ${accent}, transparent)` }}
@@ -111,11 +106,11 @@ export default function AdminDashboard() {
             {loading ? (
               <div className="skeleton h-8 w-14 mb-1.5" />
             ) : (
-              <p className="text-3xl font-bold text-[#DDDDE8] tabular-nums leading-none mb-1.5">
+              <p className="text-3xl font-bold text-[#0F172A] tabular-nums leading-none mb-1.5">
                 {getValue(key, isLength)}
               </p>
             )}
-            <p className="text-xs text-[#45455A]">{label}</p>
+            <p className="text-xs text-[#64748B]">{label}</p>
           </div>
         ))}
       </div>
@@ -124,13 +119,8 @@ export default function AdminDashboard() {
       <Card>
         <div className="flex items-center justify-between mb-5">
           <div>
-            <p
-              className="text-[9px] text-[#45455A] tracking-[0.2em] uppercase mb-1"
-              style={{ fontFamily: 'var(--font-mono)' }}
-            >
-              // Recent
-            </p>
-            <h2 className="text-sm font-semibold text-[#DDDDE8]">Recently Registered</h2>
+            <h2 className="text-sm font-semibold text-[#0F172A]">Recently Registered</h2>
+            <p className="text-xs text-[#94A3B8] mt-0.5">Latest students to join</p>
           </div>
         </div>
 
@@ -140,10 +130,10 @@ export default function AdminDashboard() {
           </div>
         ) : !stats?.recentStudents?.length ? (
           <div className="text-center py-12">
-            <div className="w-10 h-10 border border-[#1D1D26] rounded-full flex items-center justify-center mx-auto mb-3">
-              <Users size={18} className="text-[#32324A]" />
+            <div className="w-10 h-10 border border-[#E2E8F0] rounded-full flex items-center justify-center mx-auto mb-3">
+              <Users size={18} className="text-[#CBD5E1]" />
             </div>
-            <p className="text-sm text-[#45455A]">No students registered yet</p>
+            <p className="text-sm text-[#64748B]">No students registered yet</p>
           </div>
         ) : (
           <div className="overflow-x-auto -mx-1">
@@ -153,7 +143,7 @@ export default function AdminDashboard() {
                   {['Student', 'Email', 'Cohort', 'Joined'].map(h => (
                     <th
                       key={h}
-                      className="pb-3 px-2 text-[10px] font-semibold text-[#45455A] uppercase tracking-wider"
+                      className="pb-3 px-2 text-[10px] font-semibold text-[#94A3B8] uppercase tracking-wider"
                       style={{ fontFamily: 'var(--font-mono)' }}
                     >
                       {h}
@@ -166,26 +156,26 @@ export default function AdminDashboard() {
                   <tr
                     key={s.id}
                     className={cn(
-                      'hover:bg-[#17171D] transition-colors group',
-                      i !== stats.recentStudents.length - 1 && 'border-b border-[#1D1D26]'
+                      'hover:bg-[#F8FAFC] transition-colors group',
+                      i !== stats.recentStudents.length - 1 && 'border-b border-[#E2E8F0]'
                     )}
                   >
                     <td className="py-3 px-2">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-full bg-[rgba(212,168,83,0.10)] border border-[rgba(212,168,83,0.15)] flex items-center justify-center shrink-0">
-                          <span className="text-xs font-bold text-[#D4A853]">{s.name[0]}</span>
+                        <div className="w-7 h-7 rounded-full bg-[rgba(29,78,216,0.08)] border border-[rgba(29,78,216,0.14)] flex items-center justify-center shrink-0">
+                          <span className="text-xs font-bold text-[#1D4ED8]">{s.name[0]}</span>
                         </div>
-                        <span className="font-medium text-[#DDDDE8] group-hover:text-white transition-colors">{s.name}</span>
+                        <span className="font-medium text-[#0F172A]">{s.name}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-2 text-[#45455A] text-xs hidden sm:table-cell">{s.email}</td>
+                    <td className="py-3 px-2 text-[#64748B] text-xs hidden sm:table-cell">{s.email}</td>
                     <td className="py-3 px-2">
                       {s.cohort
                         ? <Badge variant="info" dot>{s.cohort}</Badge>
-                        : <span className="text-[#32324A] text-xs">—</span>
+                        : <span className="text-[#CBD5E1] text-xs">—</span>
                       }
                     </td>
-                    <td className="py-3 px-2 text-[#45455A] text-xs hidden md:table-cell" style={{ fontFamily: 'var(--font-mono)' }}>
+                    <td className="py-3 px-2 text-[#64748B] text-xs hidden md:table-cell" style={{ fontFamily: 'var(--font-mono)' }}>
                       {formatDate(s.createdAt)}
                     </td>
                   </tr>
