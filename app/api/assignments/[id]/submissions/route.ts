@@ -3,13 +3,14 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const where = session.user.role === 'ADMIN'
-    ? { assignmentId: params.id }
-    : { assignmentId: params.id, studentId: session.user.id }
+    ? { assignmentId: id }
+    : { assignmentId: id, studentId: session.user.id }
 
   const submissions = await prisma.submission.findMany({
     where,
@@ -23,7 +24,8 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   return NextResponse.json(submissions)
 }
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getServerSession(authOptions)
   if (!session || session.user.role !== 'STUDENT') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -31,7 +33,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
   const { submissionText, fileUrl, fileName } = await req.json()
 
-  const assignment = await prisma.assignment.findUnique({ where: { id: params.id } })
+  const assignment = await prisma.assignment.findUnique({ where: { id } })
   if (!assignment) return NextResponse.json({ error: 'Assignment not found' }, { status: 404 })
 
   if (new Date() > assignment.dueDate) {
@@ -41,7 +43,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
   const submission = await prisma.submission.upsert({
     where: {
       assignmentId_studentId: {
-        assignmentId: params.id,
+        assignmentId: id,
         studentId: session.user.id,
       },
     },
@@ -55,7 +57,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
       feedback: null,
     },
     create: {
-      assignmentId: params.id,
+      assignmentId: id,
       studentId: session.user.id,
       submissionText,
       fileUrl,

@@ -3,12 +3,13 @@ import { getServerSession } from 'next-auth'
 import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
-export async function GET(_: Request, { params }: { params: { id: string } }) {
+export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getServerSession(authOptions)
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const assignment = await prisma.assignment.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       course: { select: { id: true, title: true, cohort: true } },
       submissions: {
@@ -25,7 +26,8 @@ export async function GET(_: Request, { params }: { params: { id: string } }) {
   return NextResponse.json(assignment)
 }
 
-export async function PATCH(req: Request, { params }: { params: { id: string } }) {
+export async function PATCH(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getServerSession(authOptions)
   if (!session || session.user.role !== 'ADMIN') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
@@ -35,19 +37,20 @@ export async function PATCH(req: Request, { params }: { params: { id: string } }
   if (data.dueDate) data.dueDate = new Date(data.dueDate)
 
   const assignment = await prisma.assignment.update({
-    where: { id: params.id },
+    where: { id },
     data,
   })
 
   return NextResponse.json(assignment)
 }
 
-export async function DELETE(_: Request, { params }: { params: { id: string } }) {
+export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const session = await getServerSession(authOptions)
   if (!session || session.user.role !== 'ADMIN') {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  await prisma.assignment.delete({ where: { id: params.id } })
+  await prisma.assignment.delete({ where: { id } })
   return NextResponse.json({ success: true })
 }
