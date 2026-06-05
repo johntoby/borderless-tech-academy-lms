@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Obsidian Gold Design System ── */
+:root {
+  --bg:            #07070A;
+  --bg-alt:        #0B0B0F;
+  --surface:       #111116;
+  --surface-2:     #17171D;
+  --border:        #1D1D26;
+  --border-bright: #282835;
+
+  --gold:          #D4A853;
+  --gold-light:    #E8C070;
+  --gold-dim:      rgba(212, 168, 83, 0.10);
+  --gold-glow:     rgba(212, 168, 83, 0.22);
+  --gold-border:   rgba(212, 168, 83, 0.28);
+
+  --success:       #34C9A0;
+  --warning:       #E68B35;
+  --danger:        #EC5454;
+  --purple:        #9B72EA;
+
+  --text-1:        #DDDDE8;
+  --text-2:        #65657A;
+  --text-3:        #32324A;
+}
+
+* { box-sizing: border-box; }
+
+html { color-scheme: dark; }
+
+body {
+  color:            var(--text-1);
+  background-color: var(--bg);
+  font-family:      var(--font-sans), system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing:  antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Subtle dot-grid background */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    rgba(212, 168, 83, 0.032) 1px,
+    transparent 1px
+  );
+  background-size: 28px 28px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* All direct children sit above the dot grid */
+body > * { position: relative; z-index: 1; }
+
+/* Headings inherit display font */
+h1, h2, h3, h4 {
+  font-family: var(--font-syne), system-ui, sans-serif;
+}
+
+/* ── Animations ── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInScale {
+  from { opacity: 0; transform: scale(0.97); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { opacity: 0; transform: translateX(-10px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -400px 0; }
+  100% { background-position:  400px 0; }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes goldPulse {
+  0%, 100% { box-shadow: 0 0 0 0 var(--gold-glow); }
+  50%       { box-shadow: 0 0 0 6px transparent; }
+}
+
+/* ── Utility classes ── */
+@layer utilities {
+  .animate-fade-in    { animation: fadeIn 0.3s ease both; }
+  .animate-fade-scale { animation: fadeInScale 0.22s ease both; }
+  .animate-slide-in   { animation: slideInRight 0.28s ease both; }
+
+  /* Override Tailwind's tabular-nums to use mono font */
+  .tabular-nums {
+    font-family: var(--font-mono), monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .skeleton {
+    background: linear-gradient(
+      90deg,
+      var(--surface)   25%,
+      var(--surface-2) 50%,
+      var(--surface)   75%
+    );
+    background-size: 800px 100%;
+    animation: shimmer 1.6s infinite linear;
+    border-radius: 0.5rem;
+  }
+
+  .glass {
+    background: rgba(17, 17, 22, 0.72);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .glow-gold {
+    box-shadow: 0 0 24px rgba(212, 168, 83, 0.18);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #D4A853 0%, #E8C070 50%, #D4A853 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Gold accent scrollbar */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: var(--border) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar       { width: 4px; }
+  .scrollbar-thin::-webkit-scrollbar-track { background: transparent; }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 99px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 168, 83, 0.3);
+  }
+}
+
+/* ── Focus ring ── */
+:focus-visible {
+  outline: 2px solid rgba(212, 168, 83, 0.65);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Selection ── */
+::selection {
+  background: rgba(212, 168, 83, 0.18);
+  color: #E8C070;
+}
+
+a { transition: color 0.15s ease; }
