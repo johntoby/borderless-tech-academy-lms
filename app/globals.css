@@ -2,61 +2,72 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── BTA Light Design System ── */
+/* ── BTA Terminal Design System ── */
 :root {
-  --bg:            #F8FAFC;
-  --bg-alt:        #FFFFFF;
-  --surface:       #FFFFFF;
-  --surface-2:     #F1F5F9;
-  --border:        #E2E8F0;
-  --border-bright: #CBD5E1;
+  --bg:            #0A0F1E;
+  --bg-alt:        #0D1426;
+  --surface:       #111827;
+  --surface-2:     #1E293B;
+  --border:        #1E3A5F;
+  --border-bright: #2D5680;
 
-  --blue:          #1D4ED8;
-  --blue-mid:      #2563EB;
-  --blue-light:    #3B82F6;
-  --blue-dim:      rgba(29, 78, 216, 0.07);
-  --blue-glow:     rgba(29, 78, 216, 0.14);
-  --blue-border:   rgba(29, 78, 216, 0.18);
+  --cyan:          #00D4FF;
+  --cyan-mid:      #0EA5E9;
+  --cyan-dim:      rgba(14, 165, 233, 0.08);
+  --cyan-glow:     rgba(0, 212, 255, 0.18);
+  --cyan-border:   rgba(14, 165, 233, 0.30);
 
-  --gold:          #D4A853;
-  --gold-light:    #E8C070;
-  --gold-dim:      rgba(212, 168, 83, 0.10);
-  --gold-glow:     rgba(212, 168, 83, 0.20);
-  --gold-border:   rgba(212, 168, 83, 0.28);
+  --amber:         #F59E0B;
+  --amber-light:   #FBBF24;
+  --amber-dim:     rgba(245, 158, 11, 0.10);
+  --amber-glow:    rgba(245, 158, 11, 0.20);
+  --amber-border:  rgba(245, 158, 11, 0.30);
 
-  --success:       #10B981;
+  --success:       #22C55E;
   --warning:       #F59E0B;
   --danger:        #EF4444;
-  --purple:        #8B5CF6;
+  --info:          #3B82F6;
+  --purple:        #A78BFA;
 
-  --text-1:        #0F172A;
-  --text-2:        #475569;
-  --text-3:        #94A3B8;
+  --text-1:        #F1F5F9;
+  --text-2:        #94A3B8;
+  --text-3:        #64748B;
 }
 
 * { box-sizing: border-box; }
 
-html { color-scheme: light; }
+html { color-scheme: dark; }
 
 body {
   color:            var(--text-1);
   background-color: var(--bg);
-  font-family:      var(--font-sans), system-ui, -apple-system, sans-serif;
+  font-family:      var(--font-sans), 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing:  antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Subtle dot-grid texture */
+/* Subtle dot-grid texture over a faint diagonal glow */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   background-image: radial-gradient(
     circle,
-    rgba(148, 163, 184, 0.28) 1px,
+    rgba(148, 163, 184, 0.10) 1px,
     transparent 1px
   );
-  background-size: 28px 28px;
+  background-size: 32px 32px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 900px 480px at 12% -8%, rgba(14,165,233,0.08), transparent 60%),
+    radial-gradient(ellipse 700px 420px at 100% 8%, rgba(245,158,11,0.045), transparent 60%);
   pointer-events: none;
   z-index: 0;
 }
@@ -64,7 +75,22 @@ body::before {
 body > * { position: relative; z-index: 1; }
 
 h1, h2, h3, h4 {
-  font-family: var(--font-syne), system-ui, sans-serif;
+  font-family: var(--font-mono), 'JetBrains Mono', monospace;
+  letter-spacing: -0.01em;
+}
+
+/* ── Terminal cursor blink ── */
+.cursor-blink::after {
+  content: '▌';
+  display: inline-block;
+  margin-left: 0.12em;
+  color: var(--cyan);
+  animation: blink 1.05s steps(1) infinite;
+}
+
+@keyframes blink {
+  0%, 49%  { opacity: 1; }
+  50%, 100% { opacity: 0; }
 }
 
 /* ── Animations ── */
@@ -97,11 +123,17 @@ h1, h2, h3, h4 {
   50%       { opacity: 0.5; }
 }
 
+@keyframes glowPulse {
+  0%, 100% { box-shadow: 0 0 0 1px rgba(14,165,233,0.30), 0 0 20px rgba(0,212,255,0.12); }
+  50%      { box-shadow: 0 0 0 1px rgba(14,165,233,0.45), 0 0 32px rgba(0,212,255,0.22); }
+}
+
 /* ── Utility classes ── */
 @layer utilities {
   .animate-fade-in    { animation: fadeIn 0.3s ease both; }
   .animate-fade-scale { animation: fadeInScale 0.22s ease both; }
   .animate-slide-in   { animation: slideInRight 0.28s ease both; }
+  .animate-glow-pulse { animation: glowPulse 2.6s ease-in-out infinite; }
 
   .tabular-nums {
     font-family: var(--font-mono), monospace;
@@ -111,9 +143,9 @@ h1, h2, h3, h4 {
   .skeleton {
     background: linear-gradient(
       90deg,
-      #F1F5F9 25%,
-      #E2E8F0 50%,
-      #F1F5F9 75%
+      #111827 25%,
+      #1E293B 50%,
+      #111827 75%
     );
     background-size: 800px 100%;
     animation: shimmer 1.6s infinite linear;
@@ -121,27 +153,34 @@ h1, h2, h3, h4 {
   }
 
   .glass {
-    background: rgba(255, 255, 255, 0.82);
+    background: rgba(17, 24, 39, 0.72);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
   }
 
-  .glow-blue {
-    box-shadow: 0 0 24px rgba(29, 78, 216, 0.12);
+  .glow-cyan {
+    box-shadow: 0 0 24px rgba(0, 212, 255, 0.18);
   }
 
   .text-gradient {
-    background: linear-gradient(135deg, #1D4ED8 0%, #3B82F6 50%, #1D4ED8 100%);
+    background: linear-gradient(135deg, #00D4FF 0%, #0EA5E9 50%, #00D4FF 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  .text-gradient-gold {
-    background: linear-gradient(135deg, #D4A853 0%, #E8C070 50%, #D4A853 100%);
+  .text-gradient-amber {
+    background: linear-gradient(135deg, #F59E0B 0%, #FBBF24 50%, #F59E0B 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+  }
+
+  .grid-pattern {
+    background-image:
+      linear-gradient(rgba(14,165,233,0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(14,165,233,0.05) 1px, transparent 1px);
+    background-size: 40px 40px;
   }
 
   .scrollbar-thin {
@@ -155,21 +194,21 @@ h1, h2, h3, h4 {
     border-radius: 99px;
   }
   .scrollbar-thin::-webkit-scrollbar-thumb:hover {
-    background: rgba(29, 78, 216, 0.25);
+    background: rgba(0, 212, 255, 0.30);
   }
 }
 
 /* ── Focus ring ── */
 :focus-visible {
-  outline: 2px solid rgba(29, 78, 216, 0.55);
+  outline: 2px solid rgba(0, 212, 255, 0.55);
   outline-offset: 2px;
   border-radius: 6px;
 }
 
 /* ── Selection ── */
 ::selection {
-  background: rgba(29, 78, 216, 0.12);
-  color: #1D4ED8;
+  background: rgba(0, 212, 255, 0.22);
+  color: #F1F5F9;
 }
 
 a { transition: color 0.15s ease; }

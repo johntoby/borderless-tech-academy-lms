@@ -9,7 +9,7 @@ export default async function DashboardLayout({ children }: { children: React.Re
   if (session.user.role === 'ADMIN') redirect('/admin/dashboard')
 
   return (
-    <div className="flex min-h-screen bg-[#F8FAFC]">
+    <div className="flex min-h-screen bg-[#0A0F1E]">
       <StudentSidebar />
       <main className="flex-1 overflow-auto">
         <div className="max-w-5xl mx-auto p-6 md:p-8">

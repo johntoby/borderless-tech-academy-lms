@@ -12,7 +12,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ({ className, variant = 'primary', size = 'md', loading, disabled, children, ...props }, ref) => {
     const base = [
-      'inline-flex items-center justify-center gap-2 font-medium rounded-xl',
+      'inline-flex items-center justify-center gap-2 font-medium rounded-lg',
       'transition-all duration-200 select-none cursor-pointer',
       'disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none',
       'active:scale-[0.97]',
@@ -20,23 +20,24 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
 
     const variants = {
       primary: [
-        'bg-[#1D4ED8] hover:bg-[#1E40AF] text-white',
-        'shadow-sm shadow-[rgba(29,78,216,0.20)] hover:shadow-md hover:shadow-[rgba(29,78,216,0.30)]',
-        'font-semibold',
+        'bg-[#00D4FF] hover:bg-[#33DDFF] text-[#06121F] font-semibold',
+        'shadow-[0_0_0_1px_rgba(0,212,255,0.35),0_0_16px_rgba(0,212,255,0.15)]',
+        'hover:shadow-[0_0_0_1px_rgba(0,212,255,0.55),0_0_28px_rgba(0,212,255,0.40)]',
       ].join(' '),
       secondary: [
-        'bg-[#F1F5F9] hover:bg-[#E2E8F0] text-[#0F172A]',
-        'border border-[#E2E8F0] hover:border-[#CBD5E1]',
+        'bg-[#1E293B] hover:bg-[#27374D] text-[#F1F5F9]',
+        'border border-[#1E3A5F] hover:border-[#2D5680]',
       ].join(' '),
       danger: [
-        'bg-[rgba(239,68,68,0.08)] hover:bg-[rgba(239,68,68,0.14)] text-[#EF4444]',
-        'border border-[rgba(239,68,68,0.20)] hover:border-[rgba(239,68,68,0.35)]',
+        'bg-[rgba(239,68,68,0.10)] hover:bg-[rgba(239,68,68,0.18)] text-[#F87171]',
+        'border border-[rgba(239,68,68,0.30)] hover:border-[rgba(239,68,68,0.50)]',
+        'hover:shadow-[0_0_16px_rgba(239,68,68,0.20)]',
       ].join(' '),
-      ghost: 'hover:bg-[#F1F5F9] text-[#64748B] hover:text-[#0F172A]',
+      ghost: 'hover:bg-[#1E293B] text-[#94A3B8] hover:text-[#F1F5F9]',
       outline: [
-        'border border-[#E2E8F0] hover:border-[rgba(29,78,216,0.35)]',
-        'text-[#64748B] hover:text-[#1D4ED8]',
-        'hover:bg-[rgba(29,78,216,0.04)]',
+        'border border-[#1E3A5F] hover:border-[rgba(14,165,233,0.55)]',
+        'text-[#94A3B8] hover:text-[#00D4FF]',
+        'hover:bg-[rgba(14,165,233,0.06)] hover:shadow-[0_0_16px_rgba(0,212,255,0.10)]',
       ].join(' '),
     }
 

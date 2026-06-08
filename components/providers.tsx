@@ -8,15 +8,20 @@ export function Providers({ children }: { children: React.ReactNode }) {
     <SessionProvider>
       {children}
       <Toaster
-        position="top-right"
+        position="bottom-right"
         toastOptions={{
           style: {
-            background: '#1E293B',
+            background: 'rgba(17,24,39,0.85)',
+            backdropFilter: 'blur(14px)',
             color: '#F1F5F9',
-            border: '1px solid #334155',
+            border: '1px solid #1E3A5F',
+            fontFamily: 'var(--font-sans)',
+            fontSize: '13px',
+            borderRadius: '12px',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.45)',
           },
-          success: { iconTheme: { primary: '#0EA5E9', secondary: '#0F172A' } },
-          error: { iconTheme: { primary: '#EF4444', secondary: '#0F172A' } },
+          success: { iconTheme: { primary: '#00D4FF', secondary: '#0A0F1E' } },
+          error: { iconTheme: { primary: '#EF4444', secondary: '#0A0F1E' } },
         }}
       />
     </SessionProvider>

@@ -18,9 +18,9 @@ interface Course {
 }
 
 const TYPE_CONFIG = {
-  NOTE:     { icon: FileText,  color: 'text-[#1D4ED8]',  bg: 'bg-[rgba(29,78,216,0.08)]',   border: 'border-[rgba(29,78,216,0.14)]',   label: 'Note',     badge: 'info' as const },
-  VIDEO:    { icon: Video,     color: 'text-[#D97706]',  bg: 'bg-[rgba(245,158,11,0.08)]',  border: 'border-[rgba(245,158,11,0.14)]',  label: 'Video',    badge: 'warning' as const },
-  RESOURCE: { icon: LinkIcon,  color: 'text-[#059669]',  bg: 'bg-[rgba(16,185,129,0.08)]',  border: 'border-[rgba(16,185,129,0.14)]',  label: 'Resource', badge: 'success' as const },
+  NOTE:     { icon: FileText,  color: 'text-[#60A5FA]',  bg: 'bg-[rgba(59,130,246,0.10)]',   border: 'border-[rgba(59,130,246,0.20)]',   label: 'NOTE',     badge: 'info' as const },
+  VIDEO:    { icon: Video,     color: 'text-[#FBBF24]',  bg: 'bg-[rgba(245,158,11,0.10)]',  border: 'border-[rgba(245,158,11,0.22)]',  label: 'VIDEO',    badge: 'amber' as const },
+  RESOURCE: { icon: LinkIcon,  color: 'text-[#4ADE80]',  bg: 'bg-[rgba(34,197,94,0.10)]',  border: 'border-[rgba(34,197,94,0.22)]',  label: 'RESOURCE', badge: 'success' as const },
 }
 
 function ContentItem({ item, index }: { item: Content; index: number }) {
@@ -33,9 +33,9 @@ function ContentItem({ item, index }: { item: Content; index: number }) {
       rel="noopener noreferrer"
       className={cn(
         'flex items-center gap-3 p-3 rounded-xl border',
-        'bg-[#F8FAFC] hover:bg-white',
-        'border-[#E2E8F0] hover:border-[rgba(29,78,216,0.18)]',
-        'hover:shadow-sm transition-all duration-200 group animate-fade-in'
+        'bg-[#0D1426] hover:bg-[#111827]',
+        'border-[#1E3A5F] hover:border-[rgba(0,212,255,0.30)]',
+        'hover:shadow-[0_0_16px_rgba(0,212,255,0.08)] transition-all duration-200 group animate-fade-in'
       )}
       style={{ animationDelay: `${index * 40}ms` }}
     >
@@ -43,12 +43,12 @@ function ContentItem({ item, index }: { item: Content; index: number }) {
         <Icon size={15} className={cfg.color} />
       </div>
       <div className="flex-1 min-w-0">
-        <p className="text-sm font-medium text-[#0F172A] group-hover:text-[#1D4ED8] transition-colors truncate">{item.title}</p>
-        {item.description && <p className="text-xs text-[#94A3B8] truncate mt-0.5">{item.description}</p>}
+        <p className="text-sm font-medium text-[#F1F5F9] group-hover:text-[#00D4FF] transition-colors truncate">{item.title}</p>
+        {item.description && <p className="text-xs text-[#64748B] truncate mt-0.5">{item.description}</p>}
       </div>
       <div className="flex items-center gap-2 shrink-0">
-        <Badge variant={cfg.badge} className="hidden sm:flex text-[10px]">{cfg.label}</Badge>
-        <ExternalLink size={13} className="text-[#CBD5E1] group-hover:text-[#1D4ED8] transition-colors" />
+        <Badge variant={cfg.badge} className="hidden sm:flex text-[10px] tracking-wider" style={{ fontFamily: 'var(--font-mono)' } as React.CSSProperties}>{cfg.label}</Badge>
+        <ExternalLink size={13} className="text-[#475569] group-hover:text-[#00D4FF] transition-colors" />
       </div>
     </a>
   )
@@ -58,7 +58,7 @@ function Section({ title, items }: { title: string; items: Content[] }) {
   if (!items.length) return null
   return (
     <div>
-      <p className="text-xs font-semibold text-[#94A3B8] uppercase tracking-widest mb-2">{title}</p>
+      <p className="text-xs font-semibold text-[#64748B] uppercase tracking-widest mb-2" style={{ fontFamily: 'var(--font-mono)' }}>{title}</p>
       <div className="space-y-2">
         {items.map((item, i) => <ContentItem key={item.id} item={item} index={i} />)}
       </div>
@@ -85,7 +85,7 @@ export default function CourseDetailPage() {
     )
   }
 
-  if (!course) return <div className="text-[#64748B] text-sm">Course not found</div>
+  if (!course) return <div className="text-[#94A3B8] text-sm">Course not found</div>
 
   const notes     = course.content.filter(c => c.type === 'NOTE')
   const videos    = course.content.filter(c => c.type === 'VIDEO')
@@ -98,20 +98,21 @@ export default function CourseDetailPage() {
       </Link>
 
       {/* Header card */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[rgba(29,78,216,0.06)] to-transparent border border-[rgba(29,78,216,0.12)] rounded-2xl p-5">
-        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[rgba(29,78,216,0.04)] to-transparent" />
+      <div className="relative overflow-hidden bg-gradient-to-r from-[rgba(0,212,255,0.07)] to-transparent border border-[rgba(0,212,255,0.18)] rounded-2xl p-5">
+        <div className="absolute inset-0 grid-pattern opacity-30 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-[rgba(0,212,255,0.06)] to-transparent" />
         <div className="flex items-start gap-4 relative">
-          <div className="w-11 h-11 rounded-xl bg-[rgba(29,78,216,0.10)] border border-[rgba(29,78,216,0.16)] flex items-center justify-center shrink-0">
-            <BookOpen size={20} className="text-[#1D4ED8]" />
+          <div className="w-11 h-11 rounded-xl bg-[rgba(0,212,255,0.10)] border border-[rgba(0,212,255,0.25)] flex items-center justify-center shrink-0">
+            <BookOpen size={20} className="text-[#00D4FF]" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-[#0F172A] leading-snug">{course.title}</h1>
-            <p className="text-sm text-[#64748B] mt-1">{course.description}</p>
+            <h1 className="text-lg font-bold text-[#F1F5F9] leading-snug">{course.title}</h1>
+            <p className="text-sm text-[#94A3B8] mt-1">{course.description}</p>
             <div className="flex items-center gap-2 mt-3">
-              <Badge variant="info">{course.cohort}</Badge>
-              <span className="text-xs text-[#94A3B8]">Week {course.weekNumber}</span>
-              <span className="text-xs text-[#CBD5E1]">·</span>
-              <span className="text-xs text-[#94A3B8]">{course.content.length} resource{course.content.length !== 1 ? 's' : ''}</span>
+              <Badge variant="amber">{course.cohort}</Badge>
+              <span className="text-xs text-[#64748B]" style={{ fontFamily: 'var(--font-mono)' }}>week_{course.weekNumber}</span>
+              <span className="text-xs text-[#475569]">·</span>
+              <span className="text-xs text-[#64748B]">{course.content.length} resource{course.content.length !== 1 ? 's' : ''}</span>
             </div>
           </div>
         </div>
@@ -119,17 +120,17 @@ export default function CourseDetailPage() {
 
       {!course.content.length ? (
         <Card className="text-center py-14">
-          <FileText size={36} className="mx-auto mb-3 text-[#CBD5E1]" />
-          <p className="text-[#64748B] text-sm">No content available yet</p>
-          <p className="text-[#94A3B8] text-xs mt-1">Check back later — the instructor will add materials here</p>
+          <FileText size={36} className="mx-auto mb-3 text-[#475569]" />
+          <p className="text-[#94A3B8] text-sm">No content available yet</p>
+          <p className="text-[#64748B] text-xs mt-1">Check back later — the instructor will add materials here</p>
         </Card>
       ) : (
         <Card className="space-y-6">
-          <Section title="Lecture Notes" items={notes} />
-          {notes.length > 0 && videos.length > 0 && <div className="border-t border-[#E2E8F0]" />}
-          <Section title="Video Lectures" items={videos} />
-          {(notes.length > 0 || videos.length > 0) && resources.length > 0 && <div className="border-t border-[#E2E8F0]" />}
-          <Section title="Resources" items={resources} />
+          <Section title="// lecture_notes" items={notes} />
+          {notes.length > 0 && videos.length > 0 && <div className="border-t border-[#1E3A5F]" />}
+          <Section title="// video_lectures" items={videos} />
+          {(notes.length > 0 || videos.length > 0) && resources.length > 0 && <div className="border-t border-[#1E3A5F]" />}
+          <Section title="// resources" items={resources} />
         </Card>
       )}
     </div>

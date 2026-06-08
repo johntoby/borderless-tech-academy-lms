@@ -41,6 +41,7 @@ export default function AssignmentDetailPage() {
   const [uploading, setUploading] = useState(false)
   const [text, setText] = useState('')
   const [uploadedFile, setUploadedFile] = useState<{ fileUrl: string; fileName: string } | null>(null)
+  const [dragOver, setDragOver] = useState(false)
   const fileRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -58,9 +59,7 @@ export default function AssignmentDetailPage() {
       })
   }, [id])
 
-  async function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0]
-    if (!file) return
+  async function uploadFile(file: File) {
     setUploading(true)
     try {
       const fd = new FormData()
@@ -76,6 +75,18 @@ export default function AssignmentDetailPage() {
     } finally {
       setUploading(false)
     }
+  }
+
+  function handleFileUpload(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]
+    if (file) uploadFile(file)
+  }
+
+  function handleDrop(e: React.DragEvent<HTMLDivElement>) {
+    e.preventDefault()
+    setDragOver(false)
+    const file = e.dataTransfer.files?.[0]
+    if (file) uploadFile(file)
   }
 
   async function handleSubmit() {
@@ -116,7 +127,7 @@ export default function AssignmentDetailPage() {
     )
   }
 
-  if (!assignment) return <div className="text-[#64748B]">Assignment not found</div>
+  if (!assignment) return <div className="text-[#94A3B8]">Assignment not found</div>
 
   const overdue = isOverdue(assignment.dueDate)
 
@@ -131,45 +142,45 @@ export default function AssignmentDetailPage() {
       {/* Assignment card */}
       <Card>
         <div className="flex items-start justify-between gap-4 mb-4">
-          <h1 className="text-xl font-bold text-[#0F172A]">{assignment.title}</h1>
+          <h1 className="text-xl font-bold text-[#F1F5F9]">{assignment.title}</h1>
           {overdue && !mySubmission ? (
             <Badge variant="danger">Overdue</Badge>
           ) : mySubmission?.status === 'REVIEWED' ? (
             <Badge variant="success">Graded</Badge>
           ) : mySubmission ? (
-            <Badge variant="warning">Submitted</Badge>
+            <Badge variant="info">Submitted</Badge>
           ) : (
-            <Badge variant="info">Open</Badge>
+            <Badge variant="amber">Open</Badge>
           )}
         </div>
-        <div className="flex items-center gap-4 text-xs text-[#64748B] flex-wrap mb-4">
+        <div className="flex items-center gap-4 text-xs text-[#94A3B8] flex-wrap mb-4">
           <span>{assignment.course.title}</span>
-          <Badge variant="info">{assignment.course.cohort}</Badge>
-          <span className={`flex items-center gap-1 ${overdue ? 'text-[#EF4444]' : 'text-[#F59E0B]'}`}>
+          <Badge variant="amber">{assignment.course.cohort}</Badge>
+          <span className={`flex items-center gap-1 font-medium ${overdue ? 'text-[#F87171]' : 'text-[#FBBF24]'}`} style={{ fontFamily: 'var(--font-mono)' }}>
             <Calendar size={11} />
-            {overdue ? 'Deadline passed' : 'Due'}: {formatDate(assignment.dueDate)}
+            {overdue ? 'deadline_passed' : 'due'}: {formatDate(assignment.dueDate)}
           </span>
-          <span>Max: <strong className="text-[#0F172A]">{assignment.maxScore} pts</strong></span>
+          <span>Max: <strong className="text-[#F1F5F9]">{assignment.maxScore} pts</strong></span>
         </div>
-        <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-4">
-          <p className="text-sm text-[#475569] whitespace-pre-wrap">{assignment.description}</p>
+        <div className="bg-[#0D1426] border border-[#1E3A5F] rounded-xl p-4">
+          <p className="text-sm text-[#CBD5E1] whitespace-pre-wrap">{assignment.description}</p>
         </div>
       </Card>
 
       {/* Grade result */}
       {mySubmission?.status === 'REVIEWED' && (
-        <Card className="border-[rgba(16,185,129,0.25)] bg-[rgba(16,185,129,0.04)]">
+        <Card className="border-[rgba(34,197,94,0.30)] bg-[rgba(34,197,94,0.04)]">
           <div className="flex items-center gap-3 mb-3">
-            <Star size={20} className="text-[#10B981]" />
-            <h2 className="font-semibold text-[#0F172A]">Your Grade</h2>
+            <Star size={20} className="text-[#22C55E]" />
+            <h2 className="font-semibold text-[#F1F5F9]">Your Grade</h2>
           </div>
-          <div className="text-3xl font-bold text-[#059669] mb-2">
-            {mySubmission.score} <span className="text-lg text-[#94A3B8]">/ {assignment.maxScore}</span>
+          <div className="text-3xl font-bold text-[#4ADE80] mb-2 tabular-nums" style={{ fontFamily: 'var(--font-mono)' }}>
+            {mySubmission.score} <span className="text-lg text-[#64748B]">/ {assignment.maxScore}</span>
           </div>
           {mySubmission.feedback && (
-            <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-3 mt-3">
-              <p className="text-xs font-medium text-[#64748B] mb-1">Instructor Feedback</p>
-              <p className="text-sm text-[#475569] whitespace-pre-wrap">{mySubmission.feedback}</p>
+            <div className="bg-[#0D1426] border border-[#1E3A5F] rounded-xl p-3 mt-3">
+              <p className="text-xs font-medium text-[#94A3B8] mb-1">Instructor Feedback</p>
+              <p className="text-sm text-[#CBD5E1] whitespace-pre-wrap">{mySubmission.feedback}</p>
             </div>
           )}
         </Card>
@@ -179,12 +190,12 @@ export default function AssignmentDetailPage() {
       {!overdue || mySubmission ? (
         <Card>
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-semibold text-[#0F172A]">
+            <h2 className="font-semibold text-[#F1F5F9]">
               {mySubmission ? 'Your Submission' : 'Submit Assignment'}
             </h2>
             {mySubmission && (
-              <span className="text-xs text-[#94A3B8]">
-                Submitted {formatDateTime(mySubmission.submittedAt)}
+              <span className="text-xs text-[#64748B]" style={{ fontFamily: 'var(--font-mono)' }}>
+                submitted {formatDateTime(mySubmission.submittedAt)}
               </span>
             )}
           </div>
@@ -192,13 +203,13 @@ export default function AssignmentDetailPage() {
           {mySubmission?.status === 'REVIEWED' ? (
             <div className="space-y-3">
               {mySubmission.submissionText && (
-                <div className="bg-[#F8FAFC] border border-[#E2E8F0] rounded-xl p-4 text-sm text-[#475569] whitespace-pre-wrap">
+                <div className="bg-[#0D1426] border border-[#1E3A5F] rounded-xl p-4 text-sm text-[#CBD5E1] whitespace-pre-wrap">
                   {mySubmission.submissionText}
                 </div>
               )}
               {mySubmission.fileUrl && (
                 <a href={mySubmission.fileUrl} target="_blank" rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-sm text-[#1D4ED8] hover:text-[#1E40AF]">
+                  className="flex items-center gap-2 text-sm text-[#00D4FF] hover:text-[#33DDFF]">
                   <FileText size={14} /> {mySubmission.fileName || 'View file'}
                 </a>
               )}
@@ -214,8 +225,20 @@ export default function AssignmentDetailPage() {
               />
 
               <div>
-                <p className="text-sm font-medium text-[#475569] mb-2">Or upload a file (PDF, DOCX, ZIP — max 10MB)</p>
-                <div className="flex items-center gap-3">
+                <p className="text-[10px] font-semibold text-[#94A3B8] uppercase tracking-[0.12em] mb-2" style={{ fontFamily: 'var(--font-mono)' }}>
+                  Or upload a file (PDF, DOCX, ZIP — max 10MB)
+                </p>
+                <div
+                  onDragOver={e => { e.preventDefault(); setDragOver(true) }}
+                  onDragLeave={() => setDragOver(false)}
+                  onDrop={handleDrop}
+                  onClick={() => fileRef.current?.click()}
+                  className={`relative flex flex-col items-center justify-center gap-2 rounded-xl border-2 border-dashed px-6 py-8 text-center cursor-pointer transition-all duration-200 ${
+                    dragOver
+                      ? 'border-[#00D4FF] bg-[rgba(0,212,255,0.06)] shadow-[0_0_24px_rgba(0,212,255,0.15)]'
+                      : 'border-[#1E3A5F] hover:border-[#2D5680] bg-[#0D1426]'
+                  }`}
+                >
                   <input
                     ref={fileRef}
                     type="file"
@@ -223,25 +246,30 @@ export default function AssignmentDetailPage() {
                     onChange={handleFileUpload}
                     className="hidden"
                   />
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => fileRef.current?.click()}
-                    loading={uploading}
-                  >
-                    <Upload size={14} /> Choose File
-                  </Button>
-                  {uploadedFile && (
-                    <div className="flex items-center gap-2 text-sm text-[#10B981]">
-                      <CheckCircle size={14} />
-                      {uploadedFile.fileName}
-                      <button
-                        onClick={() => setUploadedFile(null)}
-                        className="text-[#94A3B8] hover:text-[#EF4444] ml-1"
-                      >×</button>
-                    </div>
+                  <div className={`w-10 h-10 rounded-xl flex items-center justify-center border ${dragOver ? 'bg-[rgba(0,212,255,0.12)] border-[rgba(0,212,255,0.35)]' : 'bg-[#1E293B] border-[#1E3A5F]'}`}>
+                    <Upload size={17} className={dragOver ? 'text-[#00D4FF]' : 'text-[#64748B]'} />
+                  </div>
+                  <p className="text-sm text-[#CBD5E1]">
+                    <span className="text-[#00D4FF] font-medium">Click to upload</span> or drag and drop
+                  </p>
+                  <p className="text-xs text-[#64748B]">PDF, DOCX or ZIP up to 10MB</p>
+
+                  {uploading && (
+                    <span className="absolute inset-0 flex items-center justify-center bg-[#0D1426]/80 rounded-xl">
+                      <span className="w-5 h-5 border-2 border-[#00D4FF] border-t-transparent rounded-full animate-spin" />
+                    </span>
                   )}
                 </div>
+                {uploadedFile && (
+                  <div className="flex items-center gap-2 text-sm text-[#4ADE80] mt-3">
+                    <CheckCircle size={14} />
+                    {uploadedFile.fileName}
+                    <button
+                      onClick={(e) => { e.stopPropagation(); setUploadedFile(null) }}
+                      className="text-[#64748B] hover:text-[#F87171] ml-1"
+                    >×</button>
+                  </div>
+                )}
               </div>
 
               <Button
@@ -254,16 +282,16 @@ export default function AssignmentDetailPage() {
                 {mySubmission ? 'Resubmit' : 'Submit Assignment'}
               </Button>
               {mySubmission && (
-                <p className="text-xs text-[#94A3B8]">Resubmitting will replace your previous submission</p>
+                <p className="text-xs text-[#64748B]">Resubmitting will replace your previous submission</p>
               )}
             </div>
           )}
         </Card>
       ) : (
-        <Card className="text-center py-10 border-[rgba(239,68,68,0.20)]">
-          <AlertCircle size={36} className="mx-auto mb-3 text-[#EF4444]" />
-          <p className="text-[#475569] font-medium">Submission Closed</p>
-          <p className="text-[#94A3B8] text-sm mt-1">The deadline for this assignment has passed</p>
+        <Card className="text-center py-10 border-[rgba(239,68,68,0.30)]">
+          <AlertCircle size={36} className="mx-auto mb-3 text-[#F87171]" />
+          <p className="text-[#CBD5E1] font-medium">Submission Closed</p>
+          <p className="text-[#64748B] text-sm mt-1">The deadline for this assignment has passed</p>
         </Card>
       )}
     </div>

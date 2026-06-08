@@ -6,8 +6,8 @@ export function Card({ className, children, ...props }: CardProps) {
   return (
     <div
       className={cn(
-        'bg-white border border-[#E2E8F0] rounded-2xl p-5',
-        'shadow-[0_1px_3px_0_rgba(15,23,42,0.06),0_1px_2px_-1px_rgba(15,23,42,0.06)]',
+        'bg-[#111827] border border-[#1E3A5F] rounded-2xl p-5',
+        'shadow-[0_1px_3px_0_rgba(0,0,0,0.3),0_1px_2px_-1px_rgba(0,0,0,0.3)]',
         'transition-colors duration-200',
         className
       )}
@@ -28,7 +28,7 @@ export function CardHeader({ className, children, ...props }: CardProps) {
 
 export function CardTitle({ className, children, ...props }: CardProps) {
   return (
-    <h3 className={cn('text-base font-semibold text-[#0F172A] tracking-tight', className)} {...props}>
+    <h3 className={cn('text-base font-semibold text-[#F1F5F9] tracking-tight', className)} {...props}>
       {children}
     </h3>
   )
@@ -58,17 +58,17 @@ export function StatCard({
   loading?: boolean
 }) {
   return (
-    <Card className="flex items-center gap-4 hover:border-[#CBD5E1] hover:shadow-[0_4px_6px_-1px_rgba(15,23,42,0.07)] transition-all duration-200">
-      <div className={cn('w-11 h-11 rounded-xl flex items-center justify-center shrink-0', bg)}>
+    <Card className="flex items-center gap-4 group hover:border-[rgba(14,165,233,0.35)] hover:shadow-[0_0_0_1px_rgba(14,165,233,0.15),0_8px_24px_-4px_rgba(0,212,255,0.12)] transition-all duration-300">
+      <div className={cn('w-11 h-11 rounded-xl flex items-center justify-center shrink-0 border border-white/[0.04] group-hover:scale-105 transition-transform duration-300', bg)}>
         <Icon size={20} className={color} />
       </div>
       <div>
         {loading ? (
           <div className="skeleton h-7 w-10 mb-1" />
         ) : (
-          <p className="text-2xl font-bold text-[#0F172A] tabular-nums">{value}</p>
+          <p className="text-2xl font-bold text-[#F1F5F9] tabular-nums">{value}</p>
         )}
-        <p className="text-xs text-[#64748B] leading-tight">{label}</p>
+        <p className="text-xs text-[#94A3B8] leading-tight">{label}</p>
       </div>
     </Card>
   )

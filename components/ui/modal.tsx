@@ -30,27 +30,27 @@ export function Modal({ open, onClose, title, children, className }: ModalProps)
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
       <div
-        className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm animate-fade-scale"
+        className="absolute inset-0 bg-[#020611]/70 backdrop-blur-sm animate-fade-scale"
         onClick={onClose}
       />
       <div
         className={cn(
           'relative w-full max-w-lg',
-          'bg-white border border-[#E2E8F0] rounded-2xl shadow-[0_20px_25px_-5px_rgba(15,23,42,0.12),0_8px_10px_-6px_rgba(15,23,42,0.08)]',
+          'bg-[#111827] border border-[#1E3A5F] rounded-2xl shadow-[0_24px_60px_-12px_rgba(0,0,0,0.6),0_0_0_1px_rgba(14,165,233,0.08)]',
           'max-h-[90vh] flex flex-col',
           'animate-fade-in',
           className
         )}
       >
-        {/* Blue top accent line */}
-        <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[rgba(29,78,216,0.30)] to-transparent rounded-full" />
+        {/* Cyan top accent line */}
+        <div className="absolute top-0 left-6 right-6 h-px bg-gradient-to-r from-transparent via-[rgba(0,212,255,0.45)] to-transparent rounded-full" />
 
         {title && (
-          <div className="flex items-center justify-between px-6 py-4 border-b border-[#E2E8F0] shrink-0">
-            <h2 className="text-base font-semibold text-[#0F172A]">{title}</h2>
+          <div className="flex items-center justify-between px-6 py-4 border-b border-[#1E3A5F] shrink-0">
+            <h2 className="text-base font-semibold text-[#F1F5F9]">{title}</h2>
             <button
               onClick={onClose}
-              className="p-1.5 rounded-lg hover:bg-[#F1F5F9] text-[#94A3B8] hover:text-[#64748B] transition-colors"
+              className="p-1.5 rounded-lg hover:bg-[#1E293B] text-[#64748B] hover:text-[#F1F5F9] transition-colors"
             >
               <X size={16} />
             </button>

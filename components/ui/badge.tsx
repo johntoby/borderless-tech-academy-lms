@@ -1,29 +1,31 @@
 import { cn } from '@/lib/utils'
 
 interface BadgeProps extends React.HTMLAttributes<HTMLSpanElement> {
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info' | 'outline' | 'purple'
+  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info' | 'outline' | 'purple' | 'amber'
   dot?: boolean
 }
 
 export function Badge({ className, variant = 'default', dot, children, ...props }: BadgeProps) {
   const variants = {
-    default: 'bg-[#F1F5F9] text-[#475569] border border-[#E2E8F0]',
-    success: 'bg-[rgba(16,185,129,0.08)] text-[#059669] border border-[rgba(16,185,129,0.18)]',
-    warning: 'bg-[rgba(245,158,11,0.08)] text-[#D97706] border border-[rgba(245,158,11,0.18)]',
-    danger:  'bg-[rgba(239,68,68,0.08)]  text-[#DC2626] border border-[rgba(239,68,68,0.18)]',
-    info:    'bg-[rgba(29,78,216,0.07)]  text-[#1D4ED8] border border-[rgba(29,78,216,0.16)]',
-    outline: 'border border-[#E2E8F0] text-[#64748B]',
-    purple:  'bg-[rgba(139,92,246,0.08)] text-[#7C3AED] border border-[rgba(139,92,246,0.18)]',
+    default: 'bg-[#1E293B] text-[#94A3B8] border border-[#1E3A5F]',
+    success: 'bg-[rgba(34,197,94,0.10)]   text-[#4ADE80] border border-[rgba(34,197,94,0.25)]',
+    warning: 'bg-[rgba(245,158,11,0.10)]  text-[#FBBF24] border border-[rgba(245,158,11,0.28)]',
+    danger:  'bg-[rgba(239,68,68,0.10)]   text-[#F87171] border border-[rgba(239,68,68,0.28)]',
+    info:    'bg-[rgba(59,130,246,0.10)]  text-[#60A5FA] border border-[rgba(59,130,246,0.28)]',
+    outline: 'border border-[#1E3A5F] text-[#94A3B8]',
+    purple:  'bg-[rgba(167,139,250,0.10)] text-[#C4B5FD] border border-[rgba(167,139,250,0.28)]',
+    amber:   'bg-[rgba(245,158,11,0.12)]  text-[#FBBF24] border border-[rgba(245,158,11,0.32)]',
   }
 
   const dots: Record<string, string> = {
     default: 'bg-[#94A3B8]',
-    success: 'bg-[#10B981]',
+    success: 'bg-[#22C55E]',
     warning: 'bg-[#F59E0B]',
     danger:  'bg-[#EF4444]',
-    info:    'bg-[#1D4ED8]',
+    info:    'bg-[#3B82F6]',
     outline: 'bg-[#94A3B8]',
-    purple:  'bg-[#8B5CF6]',
+    purple:  'bg-[#A78BFA]',
+    amber:   'bg-[#F59E0B]',
   }
 
   return (

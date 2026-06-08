@@ -18,6 +18,13 @@ interface Submission { assignmentId: string; status: 'PENDING' | 'REVIEWED'; sco
 
 type FilterKey = 'all' | 'pending' | 'submitted' | 'graded'
 
+function dueColor(days: number, overdue: boolean) {
+  if (overdue) return 'text-[#F87171]'
+  if (days < 1) return 'text-[#F87171]'
+  if (days <= 3) return 'text-[#FBBF24]'
+  return 'text-[#4ADE80]'
+}
+
 export default function StudentAssignmentsPage() {
   const [assignments, setAssignments] = useState<Assignment[]>([])
   const [subMap, setSubMap] = useState<Map<string, Submission>>(new Map())
@@ -65,12 +72,12 @@ export default function StudentAssignmentsPage() {
   return (
     <div className="space-y-5 animate-fade-in">
       <div>
-        <h1 className="text-xl font-bold text-[#0F172A] tracking-tight">Assignments</h1>
-        <p className="text-sm text-[#64748B] mt-0.5">Submit your work and track grades</p>
+        <h1 className="cursor-blink text-xl font-bold text-[#F1F5F9] tracking-tight">Assignments</h1>
+        <p className="text-sm text-[#94A3B8] mt-0.5">Submit your work and track grades</p>
       </div>
 
       {/* Filter tabs */}
-      <div className="flex gap-1.5 p-1 bg-[#F1F5F9] rounded-xl w-fit border border-[#E2E8F0]">
+      <div className="flex gap-1.5 p-1 bg-[#0D1426] rounded-xl w-fit border border-[#1E3A5F]">
         {filters.map(f => (
           <button
             key={f.key}
@@ -78,12 +85,12 @@ export default function StudentAssignmentsPage() {
             className={cn(
               'flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium transition-all',
               filter === f.key
-                ? 'bg-[#1D4ED8] text-white shadow-sm shadow-[rgba(29,78,216,0.25)]'
-                : 'text-[#64748B] hover:text-[#0F172A] hover:bg-white'
+                ? 'bg-[#00D4FF] text-[#06121F] shadow-[0_0_12px_rgba(0,212,255,0.35)]'
+                : 'text-[#94A3B8] hover:text-[#F1F5F9] hover:bg-[#1E293B]'
             )}
           >
             {f.label}
-            <span className={cn('px-1.5 py-0.5 rounded-md text-[10px] tabular-nums', filter === f.key ? 'bg-white/20' : 'bg-[#E2E8F0] text-[#94A3B8]')}>
+            <span className={cn('px-1.5 py-0.5 rounded-md text-[10px] tabular-nums', filter === f.key ? 'bg-[#06121F]/15' : 'bg-[#1E293B] text-[#64748B]')}>
               {counts[f.key]}
             </span>
           </button>
@@ -94,8 +101,8 @@ export default function StudentAssignmentsPage() {
         <div className="space-y-3">{[...Array(4)].map((_, i) => <div key={i} className="skeleton h-24 rounded-xl" />)}</div>
       ) : !filtered.length ? (
         <Card className="text-center py-16">
-          <ClipboardList size={36} className="mx-auto mb-3 text-[#CBD5E1]" />
-          <p className="text-[#64748B] text-sm font-medium">{filter !== 'all' ? 'No assignments in this category' : 'No assignments yet'}</p>
+          <ClipboardList size={36} className="mx-auto mb-3 text-[#475569]" />
+          <p className="text-[#94A3B8] text-sm font-medium">{filter !== 'all' ? 'No assignments in this category' : 'No assignments yet'}</p>
         </Card>
       ) : (
         <div className="space-y-3">
@@ -108,30 +115,32 @@ export default function StudentAssignmentsPage() {
             return (
               <div
                 key={a.id}
-                className="bg-white border border-[#E2E8F0] rounded-xl p-4 hover:border-[#CBD5E1] hover:shadow-sm transition-all duration-200 animate-fade-in group"
+                className="bg-[#111827] border border-[#1E3A5F] rounded-xl p-4 hover:border-[#2D5680] hover:shadow-[0_4px_20px_-6px_rgba(0,0,0,0.4)] transition-all duration-200 animate-fade-in group"
                 style={{ animationDelay: `${i * 30}ms` }}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1.5">
-                      {status === 'graded'    && <CheckCircle size={14} className="text-[#10B981] shrink-0" />}
-                      {status === 'submitted' && <Clock size={14} className="text-[#F59E0B] shrink-0" />}
-                      {status === 'overdue'   && <AlertCircle size={14} className="text-[#EF4444] shrink-0" />}
-                      {status === 'pending'   && <Clock size={14} className={cn('shrink-0', days <= 2 ? 'text-[#F59E0B]' : 'text-[#CBD5E1]')} />}
-                      <h3 className="font-semibold text-[#0F172A] text-sm">{a.title}</h3>
+                      {status === 'graded'    && <CheckCircle size={14} className="text-[#22C55E] shrink-0" />}
+                      {status === 'submitted' && <Clock size={14} className="text-[#FBBF24] shrink-0" />}
+                      {status === 'overdue'   && <AlertCircle size={14} className="text-[#F87171] shrink-0" />}
+                      {status === 'pending'   && <Clock size={14} className={cn('shrink-0', days <= 2 ? 'text-[#FBBF24]' : 'text-[#475569]')} />}
+                      <h3 className="font-semibold text-[#F1F5F9] text-sm">{a.title}</h3>
                       {status === 'graded' && sub?.score !== null && (
-                        <span className="flex items-center gap-1 text-xs font-medium text-[#059669] bg-[rgba(16,185,129,0.08)] border border-[rgba(16,185,129,0.18)] px-2 py-0.5 rounded-full">
+                        <Badge variant="success" className="gap-1">
                           <Star size={10} /> {sub?.score}/{a.maxScore}
-                        </span>
+                        </Badge>
                       )}
+                      {status === 'pending'   && <Badge variant="amber" dot>Pending</Badge>}
+                      {status === 'submitted' && <Badge variant="info" dot>Submitted</Badge>}
                     </div>
-                    <p className="text-xs text-[#64748B] line-clamp-1 mb-2">{a.description}</p>
+                    <p className="text-xs text-[#94A3B8] line-clamp-1 mb-2">{a.description}</p>
                     <div className="flex items-center gap-3 text-xs flex-wrap">
-                      <span className="text-[#94A3B8]">{a.course.title}</span>
-                      <Badge variant="info" className="text-[10px]">{a.course.cohort}</Badge>
-                      <span className={cn('flex items-center gap-1', overdue && status === 'pending' ? 'text-[#EF4444]' : 'text-[#94A3B8]')}>
+                      <span className="text-[#64748B]">{a.course.title}</span>
+                      <Badge variant="amber" className="text-[10px]">{a.course.cohort}</Badge>
+                      <span className={cn('flex items-center gap-1 font-medium', dueColor(days, overdue))} style={{ fontFamily: 'var(--font-mono)' }}>
                         <Calendar size={10} />
-                        {overdue ? `Closed ${formatDate(a.dueDate)}` : `${days}d · ${formatDate(a.dueDate)}`}
+                        {overdue ? `closed · ${formatDate(a.dueDate)}` : `${days}d · ${formatDate(a.dueDate)}`}
                       </span>
                     </div>
                   </div>

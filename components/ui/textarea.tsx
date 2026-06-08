@@ -12,7 +12,7 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
     return (
       <div className="flex flex-col gap-1.5">
         {label && (
-          <label htmlFor={id} className="text-[10px] font-semibold text-[#64748B] uppercase tracking-[0.12em]">
+          <label htmlFor={id} className="text-[10px] font-semibold text-[#94A3B8] uppercase tracking-[0.12em]" style={{ fontFamily: 'var(--font-mono)' }}>
             {label}
           </label>
         )}
@@ -20,18 +20,18 @@ export const Textarea = forwardRef<HTMLTextAreaElement, TextareaProps>(
           ref={ref}
           id={id}
           className={cn(
-            'w-full px-3 py-2.5 bg-white border rounded-xl text-sm text-[#0F172A] placeholder-[#94A3B8]',
+            'w-full px-3 py-2.5 bg-[#0D1426] border rounded-lg text-sm text-[#F1F5F9] placeholder-[#64748B]',
             'transition-all duration-200 resize-y min-h-[80px]',
-            'focus:outline-none focus:ring-2 focus:ring-[rgba(29,78,216,0.18)] focus:border-[rgba(29,78,216,0.40)]',
+            'focus:outline-none focus:ring-2 focus:ring-[rgba(0,212,255,0.22)] focus:border-[rgba(0,212,255,0.55)]',
             error
               ? 'border-[rgba(239,68,68,0.50)] focus:ring-[rgba(239,68,68,0.18)]'
-              : 'border-[#E2E8F0] hover:border-[#CBD5E1]',
+              : 'border-[#1E3A5F] hover:border-[#2D5680]',
             className
           )}
           {...props}
         />
-        {error && <p className="text-xs text-[#EF4444]">⚠ {error}</p>}
-        {hint && !error && <p className="text-xs text-[#94A3B8]">{hint}</p>}
+        {error && <p className="text-xs text-[#F87171]">⚠ {error}</p>}
+        {hint && !error && <p className="text-xs text-[#64748B]">{hint}</p>}
       </div>
     )
   }

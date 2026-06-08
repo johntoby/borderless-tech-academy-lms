@@ -1,39 +1,32 @@
 import type { Metadata } from 'next'
-import { Syne, Figtree, JetBrains_Mono } from 'next/font/google'
+import { IBM_Plex_Sans, JetBrains_Mono } from 'next/font/google'
 import './globals.css'
 import { Providers } from '@/components/providers'
 
-const syne = Syne({
-  subsets: ['latin'],
-  variable: '--font-syne',
-  weight: ['600', '700', '800'],
-  display: 'swap',
-})
-
-const figtree = Figtree({
+const plexSans = IBM_Plex_Sans({
   subsets: ['latin'],
   variable: '--font-sans',
-  weight: ['300', '400', '500', '600'],
+  weight: ['400', '500', '600', '700'],
   display: 'swap',
 })
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ['latin'],
   variable: '--font-mono',
-  weight: ['300', '400', '500'],
+  weight: ['400', '500', '600', '700', '800'],
   display: 'swap',
 })
 
 export const metadata: Metadata = {
   title: 'Borderless Tech Academy',
-  description: 'DevOps Training School — Learn, Build, Deploy',
+  description: 'DevOps Training School — Your laptop is your visa.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
-      className={`${syne.variable} ${figtree.variable} ${jetbrainsMono.variable}`}
+      className={`${plexSans.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased">
         <Providers>{children}</Providers>

@@ -82,8 +82,8 @@ export default function AdminCoursesPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-[#0F172A] tracking-tight">Courses</h1>
-          <p className="text-sm text-[#64748B] mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} total</p>
+          <h1 className="cursor-blink text-xl font-bold text-[#F1F5F9] tracking-tight">Courses</h1>
+          <p className="text-sm text-[#94A3B8] mt-0.5">{courses.length} course{courses.length !== 1 ? 's' : ''} total</p>
         </div>
         <Button onClick={openCreate} size="sm">
           <Plus size={14} /> New Course
@@ -96,10 +96,10 @@ export default function AdminCoursesPage() {
         </div>
       ) : !courses.length ? (
         <Card className="text-center py-20">
-          <div className="w-14 h-14 rounded-2xl bg-[#F1F5F9] flex items-center justify-center mx-auto mb-4">
-            <BookOpen size={24} className="text-[#94A3B8]" />
+          <div className="w-14 h-14 rounded-2xl bg-[#1E293B] border border-[#1E3A5F] flex items-center justify-center mx-auto mb-4">
+            <BookOpen size={24} className="text-[#64748B]" />
           </div>
-          <p className="text-[#475569] font-medium">No courses yet</p>
+          <p className="text-[#CBD5E1] font-medium">No courses yet</p>
           <p className="text-[#94A3B8] text-sm mt-1">Create your first course to get started</p>
           <Button className="mt-5" onClick={openCreate}><Plus size={14} /> Create Course</Button>
         </Card>
@@ -108,26 +108,26 @@ export default function AdminCoursesPage() {
           {Object.entries(grouped).map(([cohort, cohortCourses]) => (
             <div key={cohort}>
               <div className="flex items-center gap-2 mb-3">
-                <Layers size={14} className="text-[#94A3B8]" />
-                <span className="text-xs font-semibold text-[#64748B] uppercase tracking-widest">{cohort}</span>
-                <span className="text-xs text-[#94A3B8]">({cohortCourses.length})</span>
+                <Layers size={14} className="text-[#64748B]" />
+                <span className="text-xs font-semibold text-[#94A3B8] uppercase tracking-widest" style={{ fontFamily: 'var(--font-mono)' }}>{cohort}</span>
+                <span className="text-xs text-[#64748B]">({cohortCourses.length})</span>
               </div>
               <div className="grid gap-3 md:grid-cols-2">
                 {cohortCourses.map(c => (
                   <div
                     key={c.id}
                     className={cn(
-                      'bg-white border rounded-xl p-4 transition-all duration-200',
-                      'hover:border-[#CBD5E1] hover:shadow-[0_4px_6px_-1px_rgba(15,23,42,0.07)]',
-                      c.isPublished ? 'border-[#E2E8F0]' : 'border-[#E2E8F0] opacity-90'
+                      'bg-[#111827] border rounded-xl p-4 transition-all duration-200',
+                      'hover:border-[#2D5680] hover:shadow-[0_4px_20px_-6px_rgba(0,0,0,0.4)]',
+                      c.isPublished ? 'border-[#1E3A5F]' : 'border-[#1E3A5F] opacity-80'
                     )}
                   >
                     <div className="flex items-start justify-between gap-2 mb-3">
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2 flex-wrap mb-1">
-                          <span className="font-semibold text-[#0F172A] text-sm">{c.title}</span>
+                          <span className="font-semibold text-[#F1F5F9] text-sm">{c.title}</span>
                         </div>
-                        <p className="text-xs text-[#64748B] line-clamp-2">{c.description}</p>
+                        <p className="text-xs text-[#94A3B8] line-clamp-2">{c.description}</p>
                       </div>
                       <Badge variant={c.isPublished ? 'success' : 'outline'} dot={c.isPublished}>
                         {c.isPublished ? 'Live' : 'Draft'}
@@ -135,10 +135,10 @@ export default function AdminCoursesPage() {
                     </div>
 
                     <div className="flex items-center gap-3 text-xs text-[#94A3B8] mb-4 flex-wrap">
-                      <span>Week {c.weekNumber}</span>
+                      <span style={{ fontFamily: 'var(--font-mono)' }}>week_{c.weekNumber}</span>
                       <span className="flex items-center gap-1"><FileText size={11} /> {c._count.content}</span>
                       <span>{c._count.assignments} assignment{c._count.assignments !== 1 ? 's' : ''}</span>
-                      <span className="ml-auto text-[#CBD5E1]">{formatDate(c.createdAt)}</span>
+                      <span className="ml-auto text-[#64748B]">{formatDate(c.createdAt)}</span>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -171,11 +171,11 @@ export default function AdminCoursesPage() {
             <Input label="Week" type="number" min="1" value={form.weekNumber} onChange={e => setForm(p => ({ ...p, weekNumber: e.target.value }))} />
           </div>
           <label className="flex items-center gap-3 cursor-pointer select-none">
-            <div className={cn('w-9 h-5 rounded-full transition-colors relative', form.isPublished ? 'bg-[#1D4ED8]' : 'bg-[#E2E8F0]')}>
+            <div className={cn('w-9 h-5 rounded-full transition-colors relative', form.isPublished ? 'bg-[#00D4FF]' : 'bg-[#1E3A5F]')}>
               <input type="checkbox" className="sr-only" checked={form.isPublished} onChange={e => setForm(p => ({ ...p, isPublished: e.target.checked }))} />
-              <div className={cn('absolute top-0.5 w-4 h-4 rounded-full bg-white transition-transform shadow', form.isPublished ? 'translate-x-4' : 'translate-x-0.5')} />
+              <div className={cn('absolute top-0.5 w-4 h-4 rounded-full bg-[#0A0F1E] transition-transform shadow', form.isPublished ? 'translate-x-4' : 'translate-x-0.5')} />
             </div>
-            <span className="text-sm text-[#475569]">Publish (visible to students)</span>
+            <span className="text-sm text-[#94A3B8]">Publish (visible to students)</span>
           </label>
           <div className="flex gap-3 pt-1">
             <Button onClick={handleSave} loading={saving} className="flex-1">Save</Button>

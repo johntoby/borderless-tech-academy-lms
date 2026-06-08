@@ -62,8 +62,8 @@ export default function AdminAssignmentsPage() {
     <div className="space-y-6 animate-fade-in">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold text-[#0F172A] tracking-tight">Assignments</h1>
-          <p className="text-sm text-[#64748B] mt-0.5">{assignments.length} assignment{assignments.length !== 1 ? 's' : ''}</p>
+          <h1 className="cursor-blink text-xl font-bold text-[#F1F5F9] tracking-tight">Assignments</h1>
+          <p className="text-sm text-[#94A3B8] mt-0.5">{assignments.length} assignment{assignments.length !== 1 ? 's' : ''}</p>
         </div>
         <Button onClick={() => setModalOpen(true)} size="sm">
           <Plus size={14} /> New Assignment
@@ -74,10 +74,10 @@ export default function AdminAssignmentsPage() {
         <div className="space-y-3">{[...Array(4)].map((_, i) => <div key={i} className="skeleton h-24 rounded-xl" />)}</div>
       ) : !assignments.length ? (
         <Card className="text-center py-20">
-          <div className="w-14 h-14 rounded-2xl bg-[#F1F5F9] flex items-center justify-center mx-auto mb-4">
-            <ClipboardList size={24} className="text-[#94A3B8]" />
+          <div className="w-14 h-14 rounded-2xl bg-[#1E293B] border border-[#1E3A5F] flex items-center justify-center mx-auto mb-4">
+            <ClipboardList size={24} className="text-[#64748B]" />
           </div>
-          <p className="text-[#475569] font-medium">No assignments yet</p>
+          <p className="text-[#CBD5E1] font-medium">No assignments yet</p>
           <Button className="mt-5" onClick={() => setModalOpen(true)}><Plus size={14} /> Create Assignment</Button>
         </Card>
       ) : (
@@ -88,13 +88,13 @@ export default function AdminAssignmentsPage() {
             return (
               <div
                 key={a.id}
-                className="bg-white border border-[#E2E8F0] rounded-xl p-4 hover:border-[#CBD5E1] hover:shadow-sm transition-all duration-200 animate-fade-in"
+                className="bg-[#111827] border border-[#1E3A5F] rounded-xl p-4 hover:border-[#2D5680] hover:shadow-[0_4px_20px_-6px_rgba(0,0,0,0.4)] transition-all duration-200 animate-fade-in"
                 style={{ animationDelay: `${i * 30}ms` }}
               >
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 flex-wrap mb-1">
-                      <h3 className="font-semibold text-[#0F172A] text-sm">{a.title}</h3>
+                      <h3 className="font-semibold text-[#F1F5F9] text-sm">{a.title}</h3>
                       {overdue
                         ? <Badge variant="danger" dot>Overdue</Badge>
                         : days <= 3
@@ -104,9 +104,9 @@ export default function AdminAssignmentsPage() {
                     </div>
                     <div className="flex items-center gap-4 text-xs text-[#94A3B8] flex-wrap">
                       <span className="flex items-center gap-1"><BookOpen size={11} /> {a.course.title}</span>
-                      <Badge variant="outline">{a.course.cohort}</Badge>
-                      <span className={`flex items-center gap-1 ${overdue ? 'text-[#EF4444]' : ''}`}>
-                        <Clock size={11} /> {overdue ? `Closed ${formatDate(a.dueDate)}` : `${days}d · ${formatDate(a.dueDate)}`}
+                      <Badge variant="amber">{a.course.cohort}</Badge>
+                      <span className={`flex items-center gap-1 font-medium ${overdue ? 'text-[#F87171]' : 'text-[#94A3B8]'}`} style={{ fontFamily: 'var(--font-mono)' }}>
+                        <Clock size={11} /> {overdue ? `closed · ${formatDate(a.dueDate)}` : `${days}d · ${formatDate(a.dueDate)}`}
                       </span>
                       <span>{a._count.submissions} submitted</span>
                       <span>/{a.maxScore} pts</span>
